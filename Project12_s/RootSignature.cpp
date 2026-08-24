@@ -6,7 +6,6 @@
 //ルートシグネチャーの設定　DXGIデバイス参照
 //作成成功時、true
 [[nodiscard]] bool RootSignature::Create(const D3D12_ROOT_SIGNATURE_DESC& rDesc, const DXGIDevice& dxgiDevice) noexcept {
-
 	//ルートシグネチャーのシリアライズ
 	Microsoft::WRL::ComPtr<ID3D10Blob> rootBlob{};
 	Microsoft::WRL::ComPtr<ID3D10Blob> error{};

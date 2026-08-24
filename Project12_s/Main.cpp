@@ -41,7 +41,7 @@
 		assert(false && "ルートシグネチャー作成_失敗");
 		return false;
 	}
-	if (!pipeLine.Create(shader, Poly::Layout(), dxgiDevice, rootSig)) {
+	if (!pipeLine.Create(shader, Model2D::Layout(), dxgiDevice, rootSig)) {
 		assert(false && "パイプラインステート作成_失敗");
 		return false;
 	}
@@ -92,10 +92,10 @@ void Main::Loop() noexcept {
 		comm_fence.List().Get()->SetDescriptorHeaps(1, &pHeap);
 
 		//Map -> setGra -> draw
-
-
 		//ルートシグネチャーとヒープの紐づけ　主にルートパラメータに着目
-		poly.Draw(comm_fence.List());
+
+
+		poly.Draw(dxgiDevice, comm_fence.List());
 
 
 

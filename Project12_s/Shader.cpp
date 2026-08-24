@@ -5,7 +5,7 @@
 #pragma comment(lib, "d3dcompiler.lib")
 
 //シェーダーオブジェクト作成
-//シェーダーパス　関数名　シェーダーモデル
+//シェーダーパス
 //作成成功時、true
 [[nodiscard]] bool Shader::Create(const wchar_t* path) noexcept {
     Microsoft::WRL::ComPtr<ID3DBlob> error{};
@@ -21,7 +21,6 @@
         assert(false && "シェーダーコンパイル_失敗");
         return false;
     }
-
 
     return true;
 }

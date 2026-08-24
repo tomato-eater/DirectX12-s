@@ -2,6 +2,7 @@
 
 #include "DXGIDevice.h"
 
+//二次元オブジェクト設定
 struct Poly2D {
 	D3D12_DESCRIPTOR_RANGE r{};		//ディスクリプタテーブル
 	D3D12_ROOT_PARAMETER rParameter{};	//ルートパラメーター
@@ -16,11 +17,10 @@ struct Poly2D {
 		r.OffsetInDescriptorsFromTableStart = D3D12_DESCRIPTOR_RANGE_OFFSET_APPEND;
 		//ルートパラメーター
 		rParameter.ParameterType = D3D12_ROOT_PARAMETER_TYPE_DESCRIPTOR_TABLE;
-		rParameter.DescriptorTable.NumDescriptorRanges = 1;
-		rParameter.DescriptorTable.pDescriptorRanges = &r;
+		rParameter.DescriptorTable = { 1, &r };
 		rParameter.ShaderVisibility = D3D12_SHADER_VISIBILITY_PIXEL;
 		//サンプラーの設定
-		sDesc.Filter = D3D12_FILTER_MIN_MAG_MIP_LINEAR;
+		sDesc.Filter = D3D12_FILTER_MIN_MAG_MIP_POINT;
 		sDesc.AddressU = D3D12_TEXTURE_ADDRESS_MODE_WRAP;
 		sDesc.AddressV = D3D12_TEXTURE_ADDRESS_MODE_WRAP;
 		sDesc.AddressW = D3D12_TEXTURE_ADDRESS_MODE_WRAP;
@@ -34,15 +34,15 @@ struct Poly2D {
 		sDesc.RegisterSpace = 0;
 		sDesc.ShaderVisibility = D3D12_SHADER_VISIBILITY_PIXEL;
 		//ルートシグネチャーの設定
-		rDesc.NumParameters = 0;
-		rDesc.pParameters = nullptr;
-		rDesc.NumStaticSamplers = 0;
-		rDesc.pStaticSamplers = nullptr;
+		rDesc.NumParameters = 1;
+		rDesc.pParameters = &rParameter;
+		rDesc.NumStaticSamplers = 1;
+		rDesc.pStaticSamplers = &sDesc;
 		rDesc.Flags = D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT;
 	}
 };
 
-
+//ルートシグネチャー管理クラス
 class RootSignature final {
 	Microsoft::WRL::ComPtr<ID3D12RootSignature> rootSignature{};	//ルートシグネチャー
 

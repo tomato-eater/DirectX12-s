@@ -21,7 +21,7 @@ struct Poly {
 };
 
 //スクリーン頂点構造体
-struct Screen {
+struct Model2D {
 	//頂点_UV
 	struct Vertex {
 		DirectX::XMFLOAT3 pos;

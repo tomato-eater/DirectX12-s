@@ -11,17 +11,18 @@
 
 #include "Polygon2D.h"
 
+//メイン管理クラス
 class Main final {
 	Window window{};				//ウィンドウ管理インスタンス
 	DXGIDevice dxgiDevice{};		//DXGI_ファクトリー_アダプターとD3D12デバイス管理インスタンス
 	Comm_Fence comm_fence{};		//コマンド_キュー_アロケーター リスト_イベント管理インスタンス
 	Swap_Target swap_target{};		////スワップチェイン_レンダ―ターゲット(バックバッファ)管理インスタンス
 
-	Shader shader{};
-	RootSignature rootSig{};
-	PipeLineState pipeLine{};
+	Shader shader{};				//VS_PS用シェーダー管理インスタンス
+	RootSignature rootSig{};		//ルートシグネチャー管理インスタンス
+	PipeLineState pipeLine{};		//パイプラインステート管理インスタンス
 
-	Polygon2D poly{};
+	Polygon2D poly{};				//2Dポリゴン管理インスタンス
 
 public:
 	Main() = default;

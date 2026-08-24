@@ -1,9 +1,27 @@
-float4 vs(float4 pos : POSITION) : SV_POSITION
+Texture2D<float4> tex : register(t0);
+SamplerState smp : register(s0);
+
+struct Input
 {
-    return pos;
+    float4 pos : POSITION;
+    float2 uv : TEXCOORD;
+};
+
+struct Output
+{
+    float4 svPos : SV_POSITION;
+    float2 uv : TEXCOORD;
+};
+
+Output vs(Input input)
+{
+    Output output;
+    output.svPos = input.pos;
+    output.uv = input.uv;
+    return output;
 }
 
-float4 ps(float4 pos : SV_POSITION) : SV_TARGET
+float4 ps(Output input) : SV_TARGET
 {
-    return float4((float2(0, 1) + pos.xy) * 0.5f, 1, 1);
+    return float4(tex.Sample(smp, input.uv));
 }

@@ -76,6 +76,8 @@ D3D_FEATURE_LEVEL levels[] = {
 	return false;
 }
 
+//ファクトリー、アダプター、デバイスの作成
+//全て作成成功時、true
 [[nodiscard]] bool DXGIDevice::Create() noexcept {
 #if _DEBUG  //デバッグレイヤーの有効化
 	Microsoft::WRL::ComPtr<ID3D12Debug> debug;

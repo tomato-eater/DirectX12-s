@@ -4,6 +4,7 @@
 
 #include "Comm_Fence.h"
 
+//スワップチェイン_レンダ―ターゲット管理クラス
 class Swap_Target final {
 	SwapChain swapChain{};		//スワップチェイン管理クラスインスタンス
 
