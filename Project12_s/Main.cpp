@@ -32,6 +32,26 @@
 		assert(false && "スワップチェイン_レンダ―ターゲット(バックバッファ)作成_失敗");
 		return false;
 	}
+
+	if (!shader.Create(L"PolyShader.hlsl")) {
+		assert(false && "シェーダー取得_失敗");
+		return false;
+	}
+	if (!rootSig.Create(Poly2D(), dxgiDevice)) {
+		assert(false && "ルートシグネチャー作成_失敗");
+		return false;
+	}
+	if (!pipeLine.Create(shader, Poly::Layout(), dxgiDevice, rootSig)) {
+		assert(false && "パイプラインステート作成_失敗");
+		return false;
+	}
+
+	if (!poly.Create(dxgiDevice)) {
+		assert(false && "ポリゴン作成_失敗");
+		return false;
+	}
+
+	return true;
 }
 
 
@@ -56,11 +76,13 @@ void Main::Loop() noexcept {
 		//depthHandle.ptr += depthBuffer.HeapNum() * dxgiDevice.GetDevice()->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_DSV);
 		comm_fence.List().Get()->OMSetRenderTargets(1, cpuHandles, true, nullptr);
 		//バックバッファクリア
-		float clearColor[] = { 0.0f, 0.0f, 0.0f, 1.0f };
+		float clearColor[] = { 0.0f, 0.0f, 0.5f, 1.0f };
 		comm_fence.List().Get()->ClearRenderTargetView(cpuHandles[0], clearColor, 0, nullptr);
 
-
-		
+		//ルートシグネチャー設定
+		comm_fence.List().Get()->SetGraphicsRootSignature(rootSig.Get());
+		//パイプライン設定
+		comm_fence.List().Get()->SetPipelineState(pipeLine.Get());
 
 		// ビューポートとシザー矩形の設定
 		comm_fence.ViewportRect(window.GetSize());
@@ -73,7 +95,9 @@ void Main::Loop() noexcept {
 
 
 		//ルートシグネチャーとヒープの紐づけ　主にルートパラメータに着目
-		
+		poly.Draw(comm_fence.List());
+
+
 
 		//テクスチャー描画
 

@@ -34,6 +34,9 @@
     <Filter Include="DirectX\RenderTarget">
       <UniqueIdentifier>{b58c9ba9-915a-4321-9713-02f7861741ea}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Object">
+      <UniqueIdentifier>{6de31adc-d0b1-47d5-a132-9ebedfba86b2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Window.h">
@@ -70,6 +73,21 @@
       <Filter>DirectX\RenderTarget</Filter>
     </ClInclude>
     <ClInclude Include="Swap_Target.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Shader.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Polygon2D.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Layout.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="PipeLineState.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="RootSignature.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
@@ -110,5 +128,22 @@
     <ClCompile Include="Swap_Target.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="Shader.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Polygon2D.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="PipeLineState.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="RootSignature.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="PolyShader.hlsl">
+      <Filter>HLSL</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

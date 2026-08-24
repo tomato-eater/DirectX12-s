@@ -1,0 +1,7 @@
+Package: directxmath
+Version: 2026-06-12
+Depends: vcpkg-cmake, vcpkg-cmake-config
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 52ca6a103470e89fd4e59eacd1e5949e49d29505724197aed6ceb13737eb64e5
+Description: DirectXMath SIMD C++ math library

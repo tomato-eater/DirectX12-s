@@ -1,0 +1,11 @@
+prefix=C:/MyGameP/DX12/Project12_s/vcpkg_installed/x64-windows/vcpkg/pkgs/directxtex_x64-windows/debug
+libdir=${prefix}/lib
+includedir=${prefix}/include
+
+Name: DirectXTex
+Description: DirectX Texture Library
+URL: https://go.microsoft.com/fwlink/?LinkId=248926
+Version: 2.1.1
+Requires: DirectXMath
+Cflags: -I${includedir}
+Libs: -lDirectXTex

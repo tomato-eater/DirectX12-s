@@ -1,0 +1,14 @@
+C:/MyGameP/DX12/Project12_s/vcpkg_installed/x64-windows/vcpkg/pkgs/directxmath_x64-windows/debug/share/directxmath/DirectXMath-targets.cmake
+C:/MyGameP/DX12/Project12_s/vcpkg_installed/x64-windows/vcpkg/pkgs/directxmath_x64-windows/debug/include/DirectXCollision.h
+C:/MyGameP/DX12/Project12_s/vcpkg_installed/x64-windows/vcpkg/pkgs/directxmath_x64-windows/debug/include/DirectXCollision.inl
+C:/MyGameP/DX12/Project12_s/vcpkg_installed/x64-windows/vcpkg/pkgs/directxmath_x64-windows/debug/include/DirectXColors.h
+C:/MyGameP/DX12/Project12_s/vcpkg_installed/x64-windows/vcpkg/pkgs/directxmath_x64-windows/debug/include/DirectXMath.h
+C:/MyGameP/DX12/Project12_s/vcpkg_installed/x64-windows/vcpkg/pkgs/directxmath_x64-windows/debug/include/DirectXMathConvert.inl
+C:/MyGameP/DX12/Project12_s/vcpkg_installed/x64-windows/vcpkg/pkgs/directxmath_x64-windows/debug/include/DirectXMathMatrix.inl
+C:/MyGameP/DX12/Project12_s/vcpkg_installed/x64-windows/vcpkg/pkgs/directxmath_x64-windows/debug/include/DirectXMathMisc.inl
+C:/MyGameP/DX12/Project12_s/vcpkg_installed/x64-windows/vcpkg/pkgs/directxmath_x64-windows/debug/include/DirectXMathVector.inl
+C:/MyGameP/DX12/Project12_s/vcpkg_installed/x64-windows/vcpkg/pkgs/directxmath_x64-windows/debug/include/DirectXPackedVector.h
+C:/MyGameP/DX12/Project12_s/vcpkg_installed/x64-windows/vcpkg/pkgs/directxmath_x64-windows/debug/include/DirectXPackedVector.inl
+C:/MyGameP/DX12/Project12_s/vcpkg_installed/x64-windows/vcpkg/pkgs/directxmath_x64-windows/debug/share/directxmath/directxmath-config.cmake
+C:/MyGameP/DX12/Project12_s/vcpkg_installed/x64-windows/vcpkg/pkgs/directxmath_x64-windows/debug/share/directxmath/directxmath-config-version.cmake
+C:/MyGameP/DX12/Project12_s/vcpkg_installed/x64-windows/vcpkg/pkgs/directxmath_x64-windows/debug/lib/pkgconfig/DirectXMath.pc
