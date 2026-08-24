@@ -127,6 +127,32 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CommandAllocator.h" />
+    <ClInclude Include="CommandList.h" />
+    <ClInclude Include="CommandQueue.h" />
+    <ClInclude Include="Comm_Fence.h" />
+    <ClInclude Include="DXGIDevice.h" />
+    <ClInclude Include="Fence.h" />
+    <ClInclude Include="Heap.h" />
+    <ClInclude Include="Main.h" />
+    <ClInclude Include="RenderTarget.h" />
+    <ClInclude Include="SwapChain.h" />
+    <ClInclude Include="Swap_Target.h" />
+    <ClInclude Include="Window.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="CommandAllocator.cpp" />
+    <ClCompile Include="CommandList.cpp" />
+    <ClCompile Include="CommandQueue.cpp" />
+    <ClCompile Include="Comm_Fence.cpp" />
+    <ClCompile Include="DXGIDevice.cpp" />
+    <ClCompile Include="Fence.cpp" />
+    <ClCompile Include="Heap.cpp" />
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="RenderTarget.cpp" />
+    <ClCompile Include="SwapChain.cpp" />
+    <ClCompile Include="Swap_Target.cpp" />
+    <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

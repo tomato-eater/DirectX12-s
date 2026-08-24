@@ -13,5 +13,102 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="HLSL">
+      <UniqueIdentifier>{a43ce62e-61eb-41e4-a41e-61a8670f0091}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Main">
+      <UniqueIdentifier>{6ff665c9-1c50-4174-9518-7cb41aa573a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DirectX">
+      <UniqueIdentifier>{6186c516-1bca-4a3c-a6ca-8a50af533fb1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DirectX\Command">
+      <UniqueIdentifier>{225f2a8c-55f4-471d-9290-3db4e87b5c47}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DirectX\Fence">
+      <UniqueIdentifier>{8c9d0562-95c8-4a80-905b-cded4cdf1683}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DirectX\SwapChain">
+      <UniqueIdentifier>{4b613e26-0db8-45d5-8030-3678bcd610b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DirectX\RenderTarget">
+      <UniqueIdentifier>{b58c9ba9-915a-4321-9713-02f7861741ea}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Window.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Main.h">
+      <Filter>Main</Filter>
+    </ClInclude>
+    <ClInclude Include="DXGIDevice.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="CommandQueue.h">
+      <Filter>DirectX\Command</Filter>
+    </ClInclude>
+    <ClInclude Include="CommandAllocator.h">
+      <Filter>DirectX\Command</Filter>
+    </ClInclude>
+    <ClInclude Include="CommandList.h">
+      <Filter>DirectX\Command</Filter>
+    </ClInclude>
+    <ClInclude Include="Fence.h">
+      <Filter>DirectX\Fence</Filter>
+    </ClInclude>
+    <ClInclude Include="Comm_Fence.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Heap.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="SwapChain.h">
+      <Filter>DirectX\SwapChain</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderTarget.h">
+      <Filter>DirectX\RenderTarget</Filter>
+    </ClInclude>
+    <ClInclude Include="Swap_Target.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Window.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Main.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
+    <ClCompile Include="DXGIDevice.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="CommandQueue.cpp">
+      <Filter>DirectX\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="CommandAllocator.cpp">
+      <Filter>DirectX\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="CommandList.cpp">
+      <Filter>DirectX\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="Fence.cpp">
+      <Filter>DirectX\Fence</Filter>
+    </ClCompile>
+    <ClCompile Include="Comm_Fence.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Heap.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="SwapChain.cpp">
+      <Filter>DirectX\SwapChain</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderTarget.cpp">
+      <Filter>DirectX\RenderTarget</Filter>
+    </ClCompile>
+    <ClCompile Include="Swap_Target.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
