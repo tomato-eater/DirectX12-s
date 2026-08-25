@@ -17,22 +17,6 @@ class Polygon2D final{
 
 	std::vector<UINT> heapNum{};	//使用しているヒープの番号
 
-
-	//頂点バッファー等作成
-	//DXGIデバイス参照
-	//作成成功時、true
-	[[nodiscard]] bool CreateVertex(const DXGIDevice& dxgiDevice) noexcept;
-
-	//指数バッファー等作成
-	//DXGIデバイス参照
-	//作成成功時、true
-	[[nodiscard]] bool CreateIndex(const DXGIDevice& dxgiDevice) noexcept;
-
-	//テクスチャ―バッファー
-	//DXGIデバイス参照　コマンドセット_フェンス参照
-	//作成成功時、true
-	[[nodiscard]] bool CreateTexture(const DXGIDevice& dxgiDevice, Comm_Fence& comm_fence) noexcept;
-
 public:
 	Polygon2D() = default;
 	~Polygon2D() = default;
