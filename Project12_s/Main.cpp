@@ -46,7 +46,7 @@
 		return false;
 	}
 
-	if (!poly.Create(dxgiDevice)) {
+	if (!poly.Create(dxgiDevice, comm_fence)) {
 		assert(false && "ポリゴン作成_失敗");
 		return false;
 	}
@@ -67,8 +67,7 @@ void Main::Loop() noexcept {
 		comm_fence.Reset(backBuffIdx);
 
 		//レンダ―ターゲットの変更　表示用から描画用
-		auto reBa = swap_target.ReBarrier(backBuffIdx, D3D12_RESOURCE_STATE_PRESENT, D3D12_RESOURCE_STATE_RENDER_TARGET);
-		comm_fence.List().Get()->ResourceBarrier(1, &reBa);
+		comm_fence.List().ResourceBarrier(swap_target.GetTarget().Get(backBuffIdx), D3D12_RESOURCE_STATE_PRESENT, D3D12_RESOURCE_STATE_RENDER_TARGET);
 
 		//ハンドルの設定
 		D3D12_CPU_DESCRIPTOR_HANDLE cpuHandles[] = { swap_target.GetHandleCPU(backBuffIdx, dxgiDevice) };
@@ -88,24 +87,16 @@ void Main::Loop() noexcept {
 		comm_fence.ViewportRect(window.GetSize());
 
 		//ヒープの設定
-		const auto pHeap = HeapManager::Ins().GetHeap(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
-		comm_fence.List().Get()->SetDescriptorHeaps(1, &pHeap);
+		ID3D12DescriptorHeap* ppHeaps[] = { HeapManager::Ins().GetHeap(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV) };
+		comm_fence.List().Get()->SetDescriptorHeaps(_countof(ppHeaps), ppHeaps);
 
 		//Map -> setGra -> draw
 		//ルートシグネチャーとヒープの紐づけ　主にルートパラメータに着目
-
-
 		poly.Draw(dxgiDevice, comm_fence.List());
 
 
-
-		//テクスチャー描画
-
-
-
 		//レンダ―ターゲットの変更	描画用から表示用
-		reBa = swap_target.ReBarrier(backBuffIdx, D3D12_RESOURCE_STATE_RENDER_TARGET, D3D12_RESOURCE_STATE_PRESENT);
-		comm_fence.List().Get()->ResourceBarrier(1, &reBa);
+		comm_fence.List().ResourceBarrier(swap_target.GetTarget().Get(backBuffIdx), D3D12_RESOURCE_STATE_RENDER_TARGET, D3D12_RESOURCE_STATE_PRESENT);
 		//バッファー更新
 		comm_fence.Execute();
 		comm_fence.Present(swap_target.GetSwap(), backBuffIdx);

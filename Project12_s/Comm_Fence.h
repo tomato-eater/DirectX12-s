@@ -2,7 +2,6 @@
 
 #include <array>
 
-#include "CommandQueue.h"
 #include "CommandList.h"
 #include "Fence.h"
 #include "SwapChain.h"

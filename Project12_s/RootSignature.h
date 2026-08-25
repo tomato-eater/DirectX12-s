@@ -20,7 +20,7 @@ struct Poly2D {
 		rParameter.DescriptorTable = { 1, &r };
 		rParameter.ShaderVisibility = D3D12_SHADER_VISIBILITY_PIXEL;
 		//ÉTÉìÉvÉâÅ[ÇÃê›íË
-		sDesc.Filter = D3D12_FILTER_MIN_MAG_MIP_POINT;
+		sDesc.Filter = D3D12_FILTER_MIN_MAG_MIP_LINEAR;
 		sDesc.AddressU = D3D12_TEXTURE_ADDRESS_MODE_WRAP;
 		sDesc.AddressV = D3D12_TEXTURE_ADDRESS_MODE_WRAP;
 		sDesc.AddressW = D3D12_TEXTURE_ADDRESS_MODE_WRAP;

@@ -62,9 +62,10 @@
 
 //フェンス待機
 void Comm_Fence::WaitFence() noexcept {
-	queue.Get()->Signal(fence.GetFence(), next++);
-	values = { next, next };
+	queue.Get()->Signal(fence.GetFence(), next);
 	fence.Check(next);
+	values = { next, next };
+	next++;
 }
 
 //フェンスの確認　アロケーターとリストのリセット

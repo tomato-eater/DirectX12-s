@@ -37,18 +37,3 @@
 [[nodiscard]] D3D12_CPU_DESCRIPTOR_HANDLE Swap_Target::GetHandleCPU(const UINT index, const DXGIDevice& dxgiDevice) const noexcept {
     return renderTarget.GetHandleCPU(index, dxgiDevice);
 }
-
-//リソースバリア設定
-//バックバッファーインデックス　変更前リソース　変更後リソース
-//更新後のリソースバリア
-[[nodiscard]] D3D12_RESOURCE_BARRIER Swap_Target::ReBarrier(const uint8_t backBuffIdx, const D3D12_RESOURCE_STATES before, const D3D12_RESOURCE_STATES after) noexcept {
-    D3D12_RESOURCE_BARRIER barrier{};
-    barrier.Type = D3D12_RESOURCE_BARRIER_TYPE_TRANSITION;
-    barrier.Flags = D3D12_RESOURCE_BARRIER_FLAG_NONE;
-    barrier.Transition.pResource = renderTarget.Get(backBuffIdx);
-    barrier.Transition.Subresource = D3D12_RESOURCE_BARRIER_ALL_SUBRESOURCES;
-    barrier.Transition.StateBefore = before;
-    barrier.Transition.StateAfter = after;
-
-    return barrier;
-}

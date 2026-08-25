@@ -25,3 +25,16 @@
 	}
 	return commandList.Get();
 }
+
+//リソースバリア変更
+void CommandList::ResourceBarrier(const Microsoft::WRL::ComPtr<ID3D12Resource> resource, const D3D12_RESOURCE_STATES before, const D3D12_RESOURCE_STATES after) noexcept {
+	D3D12_RESOURCE_BARRIER barrier{};
+	barrier.Type = D3D12_RESOURCE_BARRIER_TYPE_TRANSITION;
+	barrier.Flags = D3D12_RESOURCE_BARRIER_FLAG_NONE;
+	barrier.Transition.pResource = resource.Get();
+	barrier.Transition.Subresource = D3D12_RESOURCE_BARRIER_ALL_SUBRESOURCES;
+	barrier.Transition.StateBefore = before;
+	barrier.Transition.StateAfter = after;
+
+	commandList.Get()->ResourceBarrier(1, &barrier);
+}

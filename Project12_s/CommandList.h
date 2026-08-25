@@ -18,5 +18,8 @@ public:
 	//リストの取得
 	//リストのポインター
 	[[nodiscard]] ID3D12GraphicsCommandList* Get() const noexcept;
+
+	//リソースバリア変更
+	void ResourceBarrier(const Microsoft::WRL::ComPtr<ID3D12Resource> resource, const D3D12_RESOURCE_STATES before, const D3D12_RESOURCE_STATES after) noexcept;
 };
 

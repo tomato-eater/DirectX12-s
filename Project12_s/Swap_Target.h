@@ -36,10 +36,4 @@ public:
 	//レンダ―ターゲットインデックス　ヒープ参照
 	//GPU用ハンドル(CSU)
 	[[nodiscard]] D3D12_GPU_DESCRIPTOR_HANDLE GetHandleGPU(const UINT index) const noexcept;
-
-	//リソースバリア設定
-	//バックバッファーインデックス　変更前リソース　変更後リソース
-	//更新後のリソースバリア
-	[[nodiscard]] D3D12_RESOURCE_BARRIER ReBarrier(const uint8_t backBuffIdx, const D3D12_RESOURCE_STATES before, const D3D12_RESOURCE_STATES after) noexcept;
-
 };
