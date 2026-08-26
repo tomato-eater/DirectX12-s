@@ -11,6 +11,9 @@
 
 #include "Polygon2D.h"
 
+#include "Camera.h"
+#include "GameObject.h"
+
 //メイン管理クラス
 class Main final {
 	Window window{};				//ウィンドウ管理インスタンス
@@ -21,6 +24,9 @@ class Main final {
 	Shader shader{};				//VS_PS用シェーダー管理インスタンス
 	RootSignature rootSig{};		//ルートシグネチャー管理インスタンス
 	PipeLineState pipeLine{};		//パイプラインステート管理インスタンス
+
+	Camera camera{};
+	GameObject object{};
 
 	Polygon2D poly{};				//2Dポリゴン管理インスタンス
 

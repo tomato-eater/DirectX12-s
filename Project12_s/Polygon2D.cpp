@@ -150,7 +150,7 @@
     dxgiDevice.GetDevice()->CreateShaderResourceView(textureBuffer.Get(), &srvDesc, handle);
 */
 
-D3D12_HEAP_PROPERTIES SetHeapPrope(const D3D12_HEAP_TYPE type) {
+D3D12_HEAP_PROPERTIES SetHeapProp(const D3D12_HEAP_TYPE type) {
     D3D12_HEAP_PROPERTIES prop{};
     prop.Type = type;
     prop.CPUPageProperty = D3D12_CPU_PAGE_PROPERTY_UNKNOWN;
@@ -167,15 +167,15 @@ D3D12_HEAP_PROPERTIES SetHeapPrope(const D3D12_HEAP_TYPE type) {
     //コマンドリストリセット
     comm_fence.Reset(0);
 //頂点バッファー作成
-    Model2D::Vertex vertices[]{
-       {{-0.4f, -0.7f,  0.0}, {0.0f, 1.0f}},
-       {{-0.4f,  0.7f,  0.0}, {0.0f, 0.0f}},
-       {{ 0.4f, -0.7f,  0.0}, {1.0f, 1.0f}},
-       {{ 0.4f,  0.7f,  0.0}, {1.0f, 0.0f}},
+    Structure:: Model2D::Vertex vertices[]{
+       {{-1.0f, -1.0f,  0.0}, {0.0f, 1.0f}},
+       {{-1.0f,  1.0f,  0.0}, {0.0f, 0.0f}},
+       {{ 1.0f, -1.0f,  0.0}, {1.0f, 1.0f}},
+       {{ 1.0f,  1.0f,  0.0}, {1.0f, 0.0f}},
     };
     const auto vertexSize = static_cast<UINT64>(sizeof(vertices));
     //ヒープの設定
-    auto hVertexProp = SetHeapPrope(D3D12_HEAP_TYPE_DEFAULT);
+    auto hVertexProp = SetHeapProp(D3D12_HEAP_TYPE_DEFAULT);
     //リソースの設定
     D3D12_RESOURCE_DESC rDesc{};
     rDesc.Dimension = D3D12_RESOURCE_DIMENSION_BUFFER;
@@ -193,7 +193,7 @@ D3D12_HEAP_PROPERTIES SetHeapPrope(const D3D12_HEAP_TYPE type) {
         return false;
     }
     //ヒープの設定
-    auto upVertexProp = SetHeapPrope(D3D12_HEAP_TYPE_UPLOAD);
+    auto upVertexProp = SetHeapProp(D3D12_HEAP_TYPE_UPLOAD);
     //更新用バッファー作成
     Microsoft::WRL::ComPtr<ID3D12Resource> upVertexBuffer{};
     if (FAILED(dxgiDevice.GetDevice()->CreateCommittedResource(&upVertexProp, D3D12_HEAP_FLAG_NONE, &rDesc, D3D12_RESOURCE_STATE_GENERIC_READ, nullptr, IID_PPV_ARGS(&upVertexBuffer)))) {
@@ -224,7 +224,7 @@ D3D12_HEAP_PROPERTIES SetHeapPrope(const D3D12_HEAP_TYPE type) {
     indexCount = _countof(indices);
     const auto indexSize = static_cast<UINT64>(sizeof(indices));
     //ヒープの設定
-    auto hIndexProp = SetHeapPrope(D3D12_HEAP_TYPE_DEFAULT);
+    auto hIndexProp = SetHeapProp(D3D12_HEAP_TYPE_DEFAULT);
     //リソースの設定
     rDesc.Dimension = D3D12_RESOURCE_DIMENSION_BUFFER;
     rDesc.Width = indexSize;
@@ -241,7 +241,7 @@ D3D12_HEAP_PROPERTIES SetHeapPrope(const D3D12_HEAP_TYPE type) {
         return false;
     }
     //ヒープの設定
-    auto upIndexProp = SetHeapPrope(D3D12_HEAP_TYPE_UPLOAD);
+    auto upIndexProp = SetHeapProp(D3D12_HEAP_TYPE_UPLOAD);
     //更新用バッファー作成
     Microsoft::WRL::ComPtr<ID3D12Resource> upIndexBuffer{};
     if (FAILED(dxgiDevice.GetDevice()->CreateCommittedResource(&upIndexProp, D3D12_HEAP_FLAG_NONE, &rDesc, D3D12_RESOURCE_STATE_GENERIC_READ, nullptr, IID_PPV_ARGS(&upIndexBuffer)))) {
@@ -275,7 +275,7 @@ D3D12_HEAP_PROPERTIES SetHeapPrope(const D3D12_HEAP_TYPE type) {
     }
     const auto image = scratchImage.GetImage(0, 0, 0);
     //ヒープの設定
-    auto hTexProp = SetHeapPrope(D3D12_HEAP_TYPE_DEFAULT);
+    auto hTexProp = SetHeapProp(D3D12_HEAP_TYPE_DEFAULT);
     //リソースの設定
     rDesc.Dimension = static_cast<D3D12_RESOURCE_DIMENSION>(metadata.dimension);
     rDesc.Width = metadata.width;
@@ -298,10 +298,10 @@ D3D12_HEAP_PROPERTIES SetHeapPrope(const D3D12_HEAP_TYPE type) {
     UINT64 totalBytes = 0;
     dxgiDevice.GetDevice()->GetCopyableFootprints(&rDesc, 0, 1, 0, &layout, &numRows, &rowSizeInBytes, &totalBytes);
     //アップロード用ヒープの設定
-    auto upTexProp = SetHeapPrope(D3D12_HEAP_TYPE_UPLOAD);
+    auto upTexProp = SetHeapProp(D3D12_HEAP_TYPE_UPLOAD);
     //リソースの設定
     rDesc.Dimension = D3D12_RESOURCE_DIMENSION_BUFFER;
-    rDesc.Width = (image->rowPitch + 255 & ~255) * image->height;
+    rDesc.Width = ((image->rowPitch + 255) & ~255) * image->height;
     rDesc.Height = 1;
     rDesc.DepthOrArraySize = 1;
     rDesc.MipLevels = 1;
@@ -349,7 +349,7 @@ D3D12_HEAP_PROPERTIES SetHeapPrope(const D3D12_HEAP_TYPE type) {
     auto handle = HeapManager::Ins().GetHeap(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV)->GetCPUDescriptorHandleForHeapStart();
     const auto heapNumOp = HeapManager::Ins().GetNum(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
     if (!heapNumOp.has_value()) {
-        assert(false && "ヒープ番号取得_失敗");
+        assert(false && "CSUヒープ確保_失敗");
         return false;
     }
     heapNum.emplace_back(heapNumOp.value());
@@ -366,15 +366,19 @@ D3D12_HEAP_PROPERTIES SetHeapPrope(const D3D12_HEAP_TYPE type) {
 //オブジェクト描画
 //DXGIデバイス参照　コマンドリスト参照
 void Polygon2D::Draw(const DXGIDevice& dxgiDevice, const CommandList& list) noexcept {
-    auto handle = HeapManager::Ins().GetHeap(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV)->GetGPUDescriptorHandleForHeapStart();
-    handle.ptr += heapNum.at(0) * dxgiDevice.GetDevice()->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
 
-    list.Get()->SetGraphicsRootDescriptorTable(0, handle);
+
+    auto handle = HeapManager::Ins().GetHeap(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV)->GetGPUDescriptorHandleForHeapStart();
+    const auto handleSize = dxgiDevice.GetDevice()->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
 
     list.Get()->IASetVertexBuffers(0, 1, &vertexBufferView);
     list.Get()->IASetIndexBuffer(&indexBufferView);
 
     list.Get()->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
+    //テクスチャ―との紐づけ
+    handle.ptr += heapNum.at(0) * handleSize;
+    list.Get()->SetGraphicsRootDescriptorTable(2, handle);
 
     //list.Get()->DrawInstanced(6, 1, 0, 0);
     list.Get()->DrawIndexedInstanced(indexCount, 1, 0, 0, 0);

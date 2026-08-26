@@ -34,8 +34,17 @@
     <Filter Include="DirectX\RenderTarget">
       <UniqueIdentifier>{b58c9ba9-915a-4321-9713-02f7861741ea}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Object">
+    <Filter Include="Objects">
       <UniqueIdentifier>{6de31adc-d0b1-47d5-a132-9ebedfba86b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects\Const">
+      <UniqueIdentifier>{0ef3f971-9abc-4301-a5b8-64727c57bd9d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects\Const\Camera">
+      <UniqueIdentifier>{54877f9c-d78d-4d4d-869c-02a04a11dba3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects\Const\Object">
+      <UniqueIdentifier>{636120bb-2456-461a-aef2-4dd40913cbcf}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -79,16 +88,22 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Polygon2D.h">
-      <Filter>Object</Filter>
+      <Filter>Objects</Filter>
     </ClInclude>
     <ClInclude Include="Layout.h">
-      <Filter>Object</Filter>
+      <Filter>Objects</Filter>
     </ClInclude>
     <ClInclude Include="PipeLineState.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="RootSignature.h">
       <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Objects\Const\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Objects\Const\Object</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -132,7 +147,7 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Polygon2D.cpp">
-      <Filter>Object</Filter>
+      <Filter>Objects</Filter>
     </ClCompile>
     <ClCompile Include="PipeLineState.cpp">
       <Filter>ソース ファイル</Filter>
@@ -140,9 +155,21 @@
     <ClCompile Include="RootSignature.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Objects\Const\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="ConstantBuffer.h">
+      <Filter>Objects\Const</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Objects\Const\Object</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="PolyShader.hlsl">
+      <Filter>HLSL</Filter>
+    </FxCompile>
+    <FxCompile Include="BasicShader.hlsl">
       <Filter>HLSL</Filter>
     </FxCompile>
   </ItemGroup>

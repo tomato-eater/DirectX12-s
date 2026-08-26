@@ -3,6 +3,8 @@
 #include "Comm_Fence.h"
 #include <vector>
 
+#include "ConstantBuffer.h"
+
 //二次元オブジェクト管理クラス
 class Polygon2D final{
 	Microsoft::WRL::ComPtr<ID3D12Resource> vertexBuffer{};	//頂点バッファー

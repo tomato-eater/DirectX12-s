@@ -32,19 +32,33 @@
 		assert(false && "スワップチェイン_レンダ―ターゲット(バックバッファ)作成_失敗");
 		return false;
 	}
-
-	if (!shader.Create(L"PolyShader.hlsl")) {
+	//PolyShader.hlsl
+	//BasicShader.hlsl
+	if (!shader.Create(L"BasicShader.hlsl")) {
 		assert(false && "シェーダー取得_失敗");
 		return false;
 	}
-	if (!rootSig.Create(Poly2D(), dxgiDevice)) {
+	if (!rootSig.Create(Model3D(), dxgiDevice)) {
 		assert(false && "ルートシグネチャー作成_失敗");
 		return false;
 	}
-	if (!pipeLine.Create(shader, Model2D::Layout(), dxgiDevice, rootSig)) {
+	if (!pipeLine.Create(shader, Structure::Model2D::Layout(), dxgiDevice, rootSig)) {
 		assert(false && "パイプラインステート作成_失敗");
 		return false;
 	}
+
+
+	if (!camera.Create(dxgiDevice)) {
+		assert(false && "カメラ作成_失敗");
+		return false;
+	}
+	camera.Set({0.0f, 0.0f, -5.0f}, {0.0f, 0.0f, 0.0f}, {0.0f, 1.0f, 0.0f}, window);
+
+	if (!object.Create(dxgiDevice)) {
+		assert(false && "オブジェクト作成_失敗");
+		return false;
+	}
+	object.Set({ 0, 0, 0 }, { 0, 0, 0 }, { 1, 1, 1 });
 
 	if (!poly.Create(dxgiDevice, comm_fence)) {
 		assert(false && "ポリゴン作成_失敗");
@@ -59,7 +73,6 @@
 void Main::Loop() noexcept {
 	MSG msg{};
 	while (window.messageLoop()) {
-		//座標等変更
 
 		//バックバッファインデックス取得
 		const auto backBuffIdx = swap_target.GetSwap().Get()->GetCurrentBackBufferIndex();
@@ -90,7 +103,15 @@ void Main::Loop() noexcept {
 		ID3D12DescriptorHeap* ppHeaps[] = { HeapManager::Ins().GetHeap(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV) };
 		comm_fence.List().Get()->SetDescriptorHeaps(_countof(ppHeaps), ppHeaps);
 
+		
+		//座標等変更
+		camera.Update();
+		object.Update();
+
 		//Map -> setGra -> draw
+		camera.Map(dxgiDevice, comm_fence.List());
+		object.Map(dxgiDevice, comm_fence.List());
+		
 		//ルートシグネチャーとヒープの紐づけ　主にルートパラメータに着目
 		poly.Draw(dxgiDevice, comm_fence.List());
 
