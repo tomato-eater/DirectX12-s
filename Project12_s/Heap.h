@@ -12,6 +12,11 @@ class HeapManager final {
 	HeapManager() = default;
 	~HeapManager() = default;
 
+	HeapManager(const HeapManager&) = default;
+	HeapManager& operator=(const HeapManager&) = default;
+	HeapManager(HeapManager&&) = default;
+	HeapManager& operator=(HeapManager&&) = default;
+
 	//ヒープ制御クラス
 	class Heap final {
 		Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> heap{};	//ヒープ
@@ -47,14 +52,10 @@ class HeapManager final {
 	[[nodiscard]] bool Set(ID3D12Device* device, const D3D12_DESCRIPTOR_HEAP_TYPE type, const UINT num, const bool shaderVisible) noexcept;
 
 public:
-	HeapManager(const HeapManager&) = default;
-	HeapManager& operator=(const HeapManager&) = default;
-	HeapManager(HeapManager&&) = default;
-	HeapManager& operator=(HeapManager&&) = default;
 
 	//インスタンス取得
 	//インスタンス参照
-	static HeapManager& Ins() {
+	static HeapManager& Ins() noexcept {
 		static HeapManager instance;
 		return instance;
 	}

@@ -2,6 +2,8 @@
 
 #include "Heap.h"
 
+#include "Input.h"
+
 //カメラ作成
 //作成成功時、true
 [[nodiscard]] bool Camera::Create(const DXGIDevice& dxgiDevice) noexcept {
@@ -14,12 +16,9 @@
 }
 
 //座標等の設定
-//場所　焦点　上　ウィンドウ参照
-void Camera::Set(DirectX::XMFLOAT3 p, DirectX::XMFLOAT3 f, DirectX::XMFLOAT3 t, const Window& window) noexcept {
-	position = p;
-	focus = f;
-	top = t;
-
+//ターゲットとの距離
+void Camera::Set(const float r, const Window& window) noexcept {
+	radius = r;
 	const auto size = window.GetSize();
 
 	proj = DirectX::XMMatrixPerspectiveFovLH(
@@ -32,14 +31,42 @@ void Camera::Set(DirectX::XMFLOAT3 p, DirectX::XMFLOAT3 f, DirectX::XMFLOAT3 t, 
 
 
 //更新
-void Camera::Update() noexcept {
+//プレイヤーの位置
+void Camera::Update(const DirectX::XMFLOAT3 playerPos) noexcept {
+	
+	//focus = playerPos;
+
+	auto move = Input::Ins().GetMouseMove();
+	yaw += move.at(0) * 0.01f;
+	pitch += move.at(1) * -0.01f;
+
+	float limit = DirectX::XMConvertToRadians(70.0f);
+	if (pitch > limit) pitch = limit;
+	if (pitch < -limit) pitch = -limit;
+
+	DirectX::XMVECTOR target = DirectX::XMLoadFloat3(&playerPos);
+
+	auto cosPitch = cosf(pitch);
+	auto sinPitch = sinf(pitch);
+	auto cosYaw = cosf(yaw);
+	auto sinYaw = sinf(yaw);
+
+	DirectX::XMVECTOR cameraOffset = DirectX::XMVectorSet(
+		radius * cosPitch * sinYaw,	//X
+		radius * sinPitch,			//Y
+		radius * cosPitch * cosYaw,	//Z
+		0.0f
+	);
+
+	DirectX::XMVECTOR pos = DirectX::XMVectorAdd(target, cameraOffset);
+	DirectX::XMVECTOR up = DirectX::XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
 
 
 	//ビューの計算
 	view = DirectX::XMMatrixLookAtLH(
-		DirectX::XMLoadFloat3(&position),
-		DirectX::XMLoadFloat3(&focus),
-		DirectX::XMLoadFloat3(&top)
+		pos,
+		target,
+		up
 		);
 }
 

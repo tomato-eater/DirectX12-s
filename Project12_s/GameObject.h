@@ -34,6 +34,9 @@ public:
 	//DXGIデバイス参照
 	void Map(const DXGIDevice& dxgiDevice, const CommandList& list) noexcept;
 
+	//ポジションの取得
+	[[nodiscard]] DirectX::XMFLOAT3 GetPos() const noexcept;
+
 	//ヒープ番号取得
 	[[nodiscard]] UINT GetNum() const noexcept;
 };

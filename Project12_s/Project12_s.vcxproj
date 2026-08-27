@@ -138,6 +138,7 @@
     <ClInclude Include="DXGIDevice.h" />
     <ClInclude Include="Fence.h" />
     <ClInclude Include="Heap.h" />
+    <ClInclude Include="Input.h" />
     <ClInclude Include="Layout.h" />
     <ClInclude Include="Main.h" />
     <ClInclude Include="PipeLineState.h" />
@@ -160,6 +161,7 @@
     <ClCompile Include="DXGIDevice.cpp" />
     <ClCompile Include="Fence.cpp" />
     <ClCompile Include="Heap.cpp" />
+    <ClCompile Include="Input.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="PipeLineState.cpp" />
     <ClCompile Include="GameObject.cpp" />

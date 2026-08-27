@@ -13,9 +13,9 @@ class Camera final {
 	DirectX::XMMATRIX view{};	//ビュー行列
 	DirectX::XMMATRIX proj{};	//射影行列
 
-	DirectX::XMFLOAT3 position{};	//位置
-	DirectX::XMFLOAT3 focus{};		//焦点
-	DirectX::XMFLOAT3 top{};		//上
+	float yaw{};	//左右
+	float pitch{};	//上下
+	float radius{};	//距離
 
 public:
 	Camera() = default;
@@ -26,11 +26,12 @@ public:
 	[[nodiscard]] bool Create(const DXGIDevice& dxgiDevice) noexcept;
 
 	//座標等の設定
-	//場所　焦点　上　ウィンドウ参照
-	void Set(DirectX::XMFLOAT3 p, DirectX::XMFLOAT3 f, DirectX::XMFLOAT3 t, const Window& window) noexcept;
+	//ターゲットとの距離
+	void Set(const float r, const Window& window) noexcept;
 
 	//更新
-	void Update() noexcept;
+	//プレイヤーの位置
+	void Update(const DirectX::XMFLOAT3 playerPos) noexcept;
 
 	//マップ
 	//DXGIデバイス参照　コマンドリスト参照

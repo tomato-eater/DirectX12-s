@@ -1,13 +1,49 @@
 #include "Window.h"
 
+#include "Input.h"
+#include <vector>
+
 #include <cassert>
+
+//カーソル幽閉
+void LockCursor(const HWND& hwnd) {
+	if (!hwnd) {
+		ClipCursor(nullptr);
+		return;
+	}
+	RECT rect{};
+	//描画範囲取得
+	GetClientRect(hwnd, &rect);
+	//スクリーン座標に変換
+	POINT LT = { rect.left, rect.top };
+	POINT RB = { rect.right, rect.bottom };
+	ClientToScreen(hwnd, &LT);
+	ClientToScreen(hwnd, &RB);
+	//再設定
+	RECT clipRect = { LT.x, LT.y, RB.x, RB.y };
+	//制限
+	ClipCursor(&clipRect);
+}
 
 //ウィンドウプロシージャ
 LRESULT CALLBACK MyWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 
+	auto mouseX = LOWORD(lParam);
+	auto mouseY = HIWORD(lParam);
+
 	switch (uMsg)
 	{
+	case WM_ACTIVATE:
+		if (LOWORD(wParam) != WA_INACTIVE) {
+			LockCursor(hwnd);
+		}
+		else {
+			LockCursor(nullptr);
+		}
+		break;
+
 	case WM_DESTROY:	//ウィンドウが破棄されたときの処理
+		LockCursor(nullptr);
 		PostQuitMessage(0);
 		return 0;
 
@@ -15,15 +51,41 @@ LRESULT CALLBACK MyWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam
 		DestroyWindow(hwnd);
 		return 0;
 
-	case WM_SIZE:		//ウィンドウサイズが変更されたときの処理
-
-		return 0;
 
 	case WM_KEYDOWN:	//キーが押されたときの処理
 		if (wParam == VK_ESCAPE) {	//ESC キーが押された場合
-			DestroyWindow(hwnd);
+			LockCursor(nullptr);
 		}
 		return 0;
+
+	case WM_LBUTTONDOWN: // 左クリック時
+	case WM_RBUTTONDOWN: // 右クリック時
+		if (GetActiveWindow() == hwnd) {
+			LockCursor(hwnd);
+		}
+		break;
+
+	case WM_INPUT:	//インプット
+		UINT dwSize = 0;
+		GetRawInputData((HRAWINPUT)lParam, RID_INPUT, nullptr, &dwSize, sizeof(RAWINPUTHEADER));
+
+		if (dwSize > 0) {
+			std::vector<char> buff(dwSize);
+			if (GetRawInputData((HRAWINPUT)lParam, RID_INPUT, buff.data(), &dwSize, sizeof(RAWINPUTHEADER)) == dwSize) {
+				auto& raw = *(RAWINPUT*)buff.data();
+				if (raw.header.dwType == RIM_TYPEMOUSE) {
+					// マウスの相対的な移動量（加速無しの生の数値）
+					LONG x = raw.data.mouse.lLastX;
+					LONG y = raw.data.mouse.lLastY;
+
+					if (x != 0 || y != 0) {
+						Input::Ins().UpdateMouse(x, y);
+					}
+				}
+			}
+			buff.clear();
+		}
+		break;
 	}
 	return DefWindowProc(hwnd, uMsg, wParam, lParam);
 };
@@ -51,15 +113,26 @@ LRESULT CALLBACK MyWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam
 	wc.lpszClassName = title;
 	RegisterClassExW(&wc);
 
-	//ウィンドウの生成
+	//ウィンドウ生成
 	if (FAILED(handle = CreateWindowEx(
 		0, title, title,
 		WS_OVERLAPPEDWINDOW,
 		workSpace.first, workSpace.second,
 		size.first, size.second,
 		nullptr, nullptr,
-		hInstance, this)
+		hInstance, nullptr)
 	)) {
+		assert(false && "ウィンドウ生成_失敗");
+		return false;
+	}
+	//RawInput登録
+	RAWINPUTDEVICE rawInput{};
+	rawInput.usUsagePage = 0x01;
+	rawInput.usUsage = 0x02;
+	rawInput.dwFlags = RIDEV_INPUTSINK;
+	rawInput.hwndTarget = handle;
+	if (!RegisterRawInputDevices(&rawInput, 1, sizeof(rawInput))) {
+		assert(false && "RawInputデバイス登録_失敗");
 		return false;
 	}
 
@@ -89,9 +162,13 @@ LRESULT CALLBACK MyWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam
 	return size;
 }
 
+
+
 //メッセージループ
 [[nodiscard]] bool Window::messageLoop() const noexcept {
 	MSG msg{};
+
+	Input::Ins().Update();
 
 	while (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE)) {
 		if (msg.message == WM_QUIT) {
@@ -100,6 +177,11 @@ LRESULT CALLBACK MyWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam
 		TranslateMessage(&msg);
 		DispatchMessage(&msg);
 
+		//キー情報取得
+		static byte key[256]{};
+		if (GetKeyboardState(key)) {
+			Input::Ins().UpdateState(key);
+		}
 
 	}
 

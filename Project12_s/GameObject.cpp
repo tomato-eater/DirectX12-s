@@ -1,5 +1,8 @@
 #include "GameObject.h"
 
+#include "Input.h"
+#include <string>
+
 //カメラ作成
 //作成成功時、true
 [[nodiscard]] bool GameObject::Create(const DXGIDevice& dxgiDevice) noexcept {
@@ -21,7 +24,30 @@ void GameObject::Set(DirectX::XMFLOAT3 p, DirectX::XMFLOAT3 r, DirectX::XMFLOAT3
 
 //更新
 void GameObject::Update() noexcept {
+	DirectX::XMFLOAT2 move{};
+	if (Input::Ins().PressKey('W')) {
+		move.y += 1;
+	}
+	if (Input::Ins().PressKey('S')) {
+		move.y -= 1;
+	}
+	if (Input::Ins().PressKey('D')) {
+		move.x += 1;
+	}
+	if (Input::Ins().PressKey('A')) {
+		move.x -= 1;
+	}
 
+	const float length = std::sqrt(move.x * move.x + move.y * move.y);
+	if (length > 0.0f) {
+		move.x /= length;
+		move.y /= length;
+	}
+	move.x *= 0.05f;
+	move.y *= 0.05f;
+	
+	position.x += move.x;
+	position.z += move.y;
 
 	DirectX::XMMATRIX matS = DirectX::XMMatrixScaling(scale.x, scale.y, scale.z);
 	DirectX::XMMATRIX matR = DirectX::XMMatrixRotationRollPitchYaw(rotation.x, rotation.y, rotation.z);
@@ -38,4 +64,9 @@ void GameObject::Map(const DXGIDevice& dxgiDevice, const CommandList& list) noex
 	handle.ptr += constant.GetNum() * dxgiDevice.GetDevice()->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
 
 	list.Get()->SetGraphicsRootDescriptorTable(1, handle);
+}
+
+//ポジションの取得
+[[nodiscard]] DirectX::XMFLOAT3 GameObject::GetPos() const noexcept {
+	return position;
 }

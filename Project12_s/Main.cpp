@@ -52,13 +52,14 @@
 		assert(false && "カメラ作成_失敗");
 		return false;
 	}
-	camera.Set({0.0f, 0.0f, -5.0f}, {0.0f, 0.0f, 0.0f}, {0.0f, 1.0f, 0.0f}, window);
+	camera.Set(5, window);
 
 	if (!object.Create(dxgiDevice)) {
 		assert(false && "オブジェクト作成_失敗");
 		return false;
 	}
 	object.Set({ 0, 0, 0 }, { 0, 0, 0 }, { 1, 1, 1 });
+
 
 	if (!poly.Create(dxgiDevice, comm_fence)) {
 		assert(false && "ポリゴン作成_失敗");
@@ -105,15 +106,14 @@ void Main::Loop() noexcept {
 
 		
 		//座標等変更
-		camera.Update();
+		camera.Update(object.GetPos());
 		object.Update();
 
 		//Map -> setGra -> draw
 		camera.Map(dxgiDevice, comm_fence.List());
 		object.Map(dxgiDevice, comm_fence.List());
 		
-		//ルートシグネチャーとヒープの紐づけ　主にルートパラメータに着目
-		poly.Draw(dxgiDevice, comm_fence.List());
+		poly.Draw(dxgiDevice, comm_fence.List());		
 
 
 		//レンダ―ターゲットの変更	描画用から表示用
@@ -123,6 +123,8 @@ void Main::Loop() noexcept {
 		comm_fence.Present(swap_target.GetSwap(), backBuffIdx);
 
 	}
+	comm_fence.Reset(0);
+	comm_fence.Reset(1);
 }
 
 
