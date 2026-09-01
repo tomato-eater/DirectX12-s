@@ -1,0 +1,8 @@
+C:/MyGameP/DX12/Project12_s/vcpkg_installed/x64-windows/vcpkg/blds/simdjson/x64-windows-dbg/CMakeFiles/simdjson.dir
+C:/MyGameP/DX12/Project12_s/vcpkg_installed/x64-windows/vcpkg/blds/simdjson/x64-windows-dbg/CMakeFiles/package.dir
+C:/MyGameP/DX12/Project12_s/vcpkg_installed/x64-windows/vcpkg/blds/simdjson/x64-windows-dbg/CMakeFiles/package_source.dir
+C:/MyGameP/DX12/Project12_s/vcpkg_installed/x64-windows/vcpkg/blds/simdjson/x64-windows-dbg/CMakeFiles/edit_cache.dir
+C:/MyGameP/DX12/Project12_s/vcpkg_installed/x64-windows/vcpkg/blds/simdjson/x64-windows-dbg/CMakeFiles/rebuild_cache.dir
+C:/MyGameP/DX12/Project12_s/vcpkg_installed/x64-windows/vcpkg/blds/simdjson/x64-windows-dbg/CMakeFiles/list_install_components.dir
+C:/MyGameP/DX12/Project12_s/vcpkg_installed/x64-windows/vcpkg/blds/simdjson/x64-windows-dbg/CMakeFiles/install.dir
+C:/MyGameP/DX12/Project12_s/vcpkg_installed/x64-windows/vcpkg/blds/simdjson/x64-windows-dbg/CMakeFiles/install/local.dir

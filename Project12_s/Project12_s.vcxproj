@@ -77,7 +77,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)NOMINMAX</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
@@ -92,7 +92,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)NOMINMAX</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
@@ -105,7 +105,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)NOMINMAX</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
@@ -120,7 +120,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)NOMINMAX</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
@@ -130,51 +130,55 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Camera.h" />
-    <ClInclude Include="CommandAllocator.h" />
-    <ClInclude Include="CommandList.h" />
-    <ClInclude Include="CommandQueue.h" />
-    <ClInclude Include="Comm_Fence.h" />
-    <ClInclude Include="DXGIDevice.h" />
-    <ClInclude Include="Fence.h" />
-    <ClInclude Include="Heap.h" />
-    <ClInclude Include="Input.h" />
-    <ClInclude Include="Layout.h" />
-    <ClInclude Include="Main.h" />
-    <ClInclude Include="PipeLineState.h" />
-    <ClInclude Include="GameObject.h" />
-    <ClInclude Include="Polygon2D.h" />
-    <ClInclude Include="RenderTarget.h" />
-    <ClInclude Include="RootSignature.h" />
-    <ClInclude Include="Shader.h" />
-    <ClInclude Include="SwapChain.h" />
-    <ClInclude Include="Swap_Target.h" />
-    <ClInclude Include="Window.h" />
+    <ClInclude Include="Code\Objects\Camera\Camera.h" />
+    <ClInclude Include="Code\DirectX\CommandAllocator.h" />
+    <ClInclude Include="Code\DirectX\CommandList.h" />
+    <ClInclude Include="Code\DirectX\CommandQueue.h" />
+    <ClInclude Include="Code\DirectX\Comm_Fence.h" />
+    <ClInclude Include="Code\DirectX\DXGIDevice.h" />
+    <ClInclude Include="Code\DirectX\Fence.h" />
+    <ClInclude Include="Code\Objects\Model\GlbModel.h" />
+    <ClInclude Include="Code\DirectX\Heap.h" />
+    <ClInclude Include="Code\Input\Input.h" />
+    <ClInclude Include="Code\Objects\Layout.h" />
+    <ClInclude Include="Code\Main\Main.h" />
+    <ClInclude Include="Code\Objects\Model\Temp\Model.h" />
+    <ClInclude Include="Code\DirectX\PipeLineState.h" />
+    <ClInclude Include="Code\Objects\Model\GameObject.h" />
+    <ClInclude Include="Code\Objects\Model\Polygon2D.h" />
+    <ClInclude Include="Code\DirectX\RenderTarget.h" />
+    <ClInclude Include="Code\DirectX\RootSignature.h" />
+    <ClInclude Include="Code\Shaders\Shader.h" />
+    <ClInclude Include="Code\DirectX\SwapChain.h" />
+    <ClInclude Include="Code\DirectX\Swap_Target.h" />
+    <ClInclude Include="Code\Window\Window.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Camera.cpp" />
-    <ClCompile Include="CommandAllocator.cpp" />
-    <ClCompile Include="CommandList.cpp" />
-    <ClCompile Include="CommandQueue.cpp" />
-    <ClCompile Include="Comm_Fence.cpp" />
-    <ClCompile Include="ConstantBuffer.h" />
-    <ClCompile Include="DXGIDevice.cpp" />
-    <ClCompile Include="Fence.cpp" />
-    <ClCompile Include="Heap.cpp" />
-    <ClCompile Include="Input.cpp" />
-    <ClCompile Include="Main.cpp" />
-    <ClCompile Include="PipeLineState.cpp" />
-    <ClCompile Include="GameObject.cpp" />
-    <ClCompile Include="Polygon2D.cpp" />
-    <ClCompile Include="RenderTarget.cpp" />
-    <ClCompile Include="RootSignature.cpp" />
-    <ClCompile Include="Shader.cpp" />
-    <ClCompile Include="SwapChain.cpp" />
-    <ClCompile Include="Swap_Target.cpp" />
-    <ClCompile Include="Window.cpp" />
+    <ClCompile Include="Code\Objects\Camera\Camera.cpp" />
+    <ClCompile Include="Code\DirectX\CommandAllocator.cpp" />
+    <ClCompile Include="Code\DirectX\CommandList.cpp" />
+    <ClCompile Include="Code\DirectX\CommandQueue.cpp" />
+    <ClCompile Include="Code\DirectX\Comm_Fence.cpp" />
+    <ClCompile Include="Code\Objects\Model\Temp\Model.cpp" />
+    <ClCompile Include="Code\Objects\Const\ConstantBuffer.h" />
+    <ClCompile Include="Code\DirectX\DXGIDevice.cpp" />
+    <ClCompile Include="Code\DirectX\Fence.cpp" />
+    <ClCompile Include="Code\Objects\Model\GlbModel.cpp" />
+    <ClCompile Include="Code\DirectX\Heap.cpp" />
+    <ClCompile Include="Code\Input\Input.cpp" />
+    <ClCompile Include="Code\Main\Main.cpp" />
+    <ClCompile Include="Code\DirectX\PipeLineState.cpp" />
+    <ClCompile Include="Code\Objects\Model\GameObject.cpp" />
+    <ClCompile Include="Code\Objects\Model\Polygon2D.cpp" />
+    <ClCompile Include="Code\DirectX\RenderTarget.cpp" />
+    <ClCompile Include="Code\DirectX\RootSignature.cpp" />
+    <ClCompile Include="Code\Shaders\Shader.cpp" />
+    <ClCompile Include="Code\DirectX\SwapChain.cpp" />
+    <ClCompile Include="Code\DirectX\Swap_Target.cpp" />
+    <ClCompile Include="Code\Window\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="BasicShader.hlsl">
+    <FxCompile Include="Code\Shaders\HLSL\BasicShader.hlsl">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
@@ -184,7 +188,17 @@
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
     </FxCompile>
-    <FxCompile Include="PolyShader.hlsl">
+    <FxCompile Include="Code\Shaders\HLSL\GlbShader.hlsl">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">5.0</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">5.0</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="Code\Shaders\HLSL\PolyShader.hlsl">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>

@@ -38,3 +38,50 @@ Multi-Arch: same
 Description: Build with DirectX11 support
 Status: install ok installed
 
+Package: simdjson
+Version: 4.6.7
+Depends: vcpkg-cmake, vcpkg-cmake-config
+Architecture: x64-windows
+Multi-Arch: same
+Abi: ffb8d252bcdf287825aed9f8906ad7244ebd56bfb5e19e4a5157daef0e8079f3
+Description: An extremely fast JSON library that can parse gigabytes of JSON per second
+Default-Features: deprecated, exceptions, threads, utf8-validation
+Status: install ok installed
+
+Package: simdjson
+Feature: deprecated
+Architecture: x64-windows
+Multi-Arch: same
+Description: Enable deprecated APIs
+Status: install ok installed
+
+Package: simdjson
+Feature: exceptions
+Architecture: x64-windows
+Multi-Arch: same
+Description: Enable exception-throwing interface
+Status: install ok installed
+
+Package: simdjson
+Feature: threads
+Architecture: x64-windows
+Multi-Arch: same
+Description: Link with thread support
+Status: install ok installed
+
+Package: simdjson
+Feature: utf8-validation
+Architecture: x64-windows
+Multi-Arch: same
+Description: Enable UTF-8 validation
+Status: install ok installed
+
+Package: fastgltf
+Version: 0.9.0
+Depends: simdjson, vcpkg-cmake, vcpkg-cmake-config
+Architecture: x64-windows
+Multi-Arch: same
+Abi: ee90aa03984f01e59da68e7b00411321dd6eb9ec4bdb4462dadfaf86b276c8cc
+Description: A modern C++17 glTF 2.0 library focused on speed, correctness, and usability
+Status: install ok installed
+

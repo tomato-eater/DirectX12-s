@@ -1,8 +1,9 @@
 {
   "name": "project12-s",
   "version-string": "1.0.0",
+  "builtin-baseline": "f74a2eade17a628413746557d04db25ccf6e76f9",
   "dependencies": [
-    "directxtex"
-  ],
-  "builtin-baseline": "f74a2eade17a628413746557d04db25ccf6e76f9"
+    "directxtex",
+    "fastgltf"
+  ]
 }

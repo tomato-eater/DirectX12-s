@@ -1,0 +1,8 @@
+C:/MyGameP/DX12/Project12_s/vcpkg_installed/x64-windows/vcpkg/pkgs/simdjson_x64-windows/include/simdjson.h
+C:/MyGameP/DX12/Project12_s/vcpkg_installed/x64-windows/vcpkg/pkgs/simdjson_x64-windows/lib/simdjson.lib
+C:/MyGameP/DX12/Project12_s/vcpkg_installed/x64-windows/vcpkg/pkgs/simdjson_x64-windows/bin/simdjson.dll
+C:/MyGameP/DX12/Project12_s/vcpkg_installed/x64-windows/vcpkg/pkgs/simdjson_x64-windows/lib/cmake/simdjson/simdjson-config.cmake
+C:/MyGameP/DX12/Project12_s/vcpkg_installed/x64-windows/vcpkg/pkgs/simdjson_x64-windows/lib/cmake/simdjson/simdjson-config-version.cmake
+C:/MyGameP/DX12/Project12_s/vcpkg_installed/x64-windows/vcpkg/pkgs/simdjson_x64-windows/lib/cmake/simdjson/simdjsonTargets.cmake
+C:/MyGameP/DX12/Project12_s/vcpkg_installed/x64-windows/vcpkg/pkgs/simdjson_x64-windows/lib/cmake/simdjson/simdjsonTargets-release.cmake
+C:/MyGameP/DX12/Project12_s/vcpkg_installed/x64-windows/vcpkg/pkgs/simdjson_x64-windows/lib/pkgconfig/simdjson.pc

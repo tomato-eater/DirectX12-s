@@ -48,135 +48,148 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Window.h">
+    <ClInclude Include="Code\Window\Window.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Main.h">
+    <ClInclude Include="Code\Main\Main.h">
       <Filter>Main</Filter>
     </ClInclude>
-    <ClInclude Include="DXGIDevice.h">
+    <ClInclude Include="Code\DirectX\DXGIDevice.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="CommandQueue.h">
+    <ClInclude Include="Code\DirectX\CommandQueue.h">
       <Filter>DirectX\Command</Filter>
     </ClInclude>
-    <ClInclude Include="CommandAllocator.h">
+    <ClInclude Include="Code\DirectX\CommandAllocator.h">
       <Filter>DirectX\Command</Filter>
     </ClInclude>
-    <ClInclude Include="CommandList.h">
+    <ClInclude Include="Code\DirectX\CommandList.h">
       <Filter>DirectX\Command</Filter>
     </ClInclude>
-    <ClInclude Include="Fence.h">
+    <ClInclude Include="Code\DirectX\Fence.h">
       <Filter>DirectX\Fence</Filter>
     </ClInclude>
-    <ClInclude Include="Comm_Fence.h">
+    <ClInclude Include="Code\DirectX\Comm_Fence.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Heap.h">
+    <ClInclude Include="Code\DirectX\Heap.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="SwapChain.h">
+    <ClInclude Include="Code\DirectX\SwapChain.h">
       <Filter>DirectX\SwapChain</Filter>
     </ClInclude>
-    <ClInclude Include="RenderTarget.h">
+    <ClInclude Include="Code\DirectX\RenderTarget.h">
       <Filter>DirectX\RenderTarget</Filter>
     </ClInclude>
-    <ClInclude Include="Swap_Target.h">
+    <ClInclude Include="Code\DirectX\Swap_Target.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Shader.h">
+    <ClInclude Include="Code\Shaders\Shader.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Polygon2D.h">
+    <ClInclude Include="Code\Objects\Model\Polygon2D.h">
       <Filter>Objects</Filter>
     </ClInclude>
-    <ClInclude Include="Layout.h">
+    <ClInclude Include="Code\Objects\Layout.h">
       <Filter>Objects</Filter>
     </ClInclude>
-    <ClInclude Include="PipeLineState.h">
+    <ClInclude Include="Code\DirectX\PipeLineState.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="RootSignature.h">
+    <ClInclude Include="Code\DirectX\RootSignature.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Camera.h">
+    <ClInclude Include="Code\Objects\Camera\Camera.h">
       <Filter>Objects\Const\Camera</Filter>
     </ClInclude>
-    <ClInclude Include="GameObject.h">
+    <ClInclude Include="Code\Objects\Model\GameObject.h">
       <Filter>Objects\Const\Object</Filter>
     </ClInclude>
-    <ClInclude Include="Input.h">
+    <ClInclude Include="Code\Input\Input.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Objects\Model\GlbModel.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Objects\Model\Temp\Model.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Window.cpp">
+    <ClCompile Include="Code\Window\Window.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Main.cpp">
+    <ClCompile Include="Code\Main\Main.cpp">
       <Filter>Main</Filter>
     </ClCompile>
-    <ClCompile Include="DXGIDevice.cpp">
+    <ClCompile Include="Code\DirectX\DXGIDevice.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="CommandQueue.cpp">
+    <ClCompile Include="Code\DirectX\CommandQueue.cpp">
       <Filter>DirectX\Command</Filter>
     </ClCompile>
-    <ClCompile Include="CommandAllocator.cpp">
+    <ClCompile Include="Code\DirectX\CommandAllocator.cpp">
       <Filter>DirectX\Command</Filter>
     </ClCompile>
-    <ClCompile Include="CommandList.cpp">
+    <ClCompile Include="Code\DirectX\CommandList.cpp">
       <Filter>DirectX\Command</Filter>
     </ClCompile>
-    <ClCompile Include="Fence.cpp">
+    <ClCompile Include="Code\DirectX\Fence.cpp">
       <Filter>DirectX\Fence</Filter>
     </ClCompile>
-    <ClCompile Include="Comm_Fence.cpp">
+    <ClCompile Include="Code\DirectX\Comm_Fence.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Heap.cpp">
+    <ClCompile Include="Code\DirectX\Heap.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="SwapChain.cpp">
+    <ClCompile Include="Code\DirectX\SwapChain.cpp">
       <Filter>DirectX\SwapChain</Filter>
     </ClCompile>
-    <ClCompile Include="RenderTarget.cpp">
+    <ClCompile Include="Code\DirectX\RenderTarget.cpp">
       <Filter>DirectX\RenderTarget</Filter>
     </ClCompile>
-    <ClCompile Include="Swap_Target.cpp">
+    <ClCompile Include="Code\DirectX\Swap_Target.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Shader.cpp">
+    <ClCompile Include="Code\Shaders\Shader.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Polygon2D.cpp">
+    <ClCompile Include="Code\Objects\Model\Polygon2D.cpp">
       <Filter>Objects</Filter>
     </ClCompile>
-    <ClCompile Include="PipeLineState.cpp">
+    <ClCompile Include="Code\DirectX\PipeLineState.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="RootSignature.cpp">
+    <ClCompile Include="Code\DirectX\RootSignature.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Camera.cpp">
+    <ClCompile Include="Code\Objects\Camera\Camera.cpp">
       <Filter>Objects\Const\Camera</Filter>
     </ClCompile>
-    <ClCompile Include="ConstantBuffer.h">
+    <ClCompile Include="Code\Objects\Const\ConstantBuffer.h">
       <Filter>Objects\Const</Filter>
     </ClCompile>
-    <ClCompile Include="GameObject.cpp">
+    <ClCompile Include="Code\Objects\Model\GameObject.cpp">
       <Filter>Objects\Const\Object</Filter>
     </ClCompile>
-    <ClCompile Include="Input.cpp">
+    <ClCompile Include="Code\Input\Input.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Objects\Model\GlbModel.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Objects\Model\Temp\Model.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="PolyShader.hlsl">
+    <FxCompile Include="Code\Shaders\HLSL\PolyShader.hlsl">
       <Filter>HLSL</Filter>
     </FxCompile>
-    <FxCompile Include="BasicShader.hlsl">
+    <FxCompile Include="Code\Shaders\HLSL\BasicShader.hlsl">
       <Filter>HLSL</Filter>
     </FxCompile>
+    <FxCompile Include="Code\Shaders\HLSL\GlbShader.hlsl" />
   </ItemGroup>
 </Project>

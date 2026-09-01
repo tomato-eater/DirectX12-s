@@ -1,0 +1,13 @@
+C:/MyGameP/DX12/Project12_s/vcpkg_installed/x64-windows/vcpkg/pkgs/fastgltf_x64-windows/include/fastgltf/base64.hpp
+C:/MyGameP/DX12/Project12_s/vcpkg_installed/x64-windows/vcpkg/pkgs/fastgltf_x64-windows/include/fastgltf/core.hpp
+C:/MyGameP/DX12/Project12_s/vcpkg_installed/x64-windows/vcpkg/pkgs/fastgltf_x64-windows/include/fastgltf/dxmath_element_traits.hpp
+C:/MyGameP/DX12/Project12_s/vcpkg_installed/x64-windows/vcpkg/pkgs/fastgltf_x64-windows/include/fastgltf/glm_element_traits.hpp
+C:/MyGameP/DX12/Project12_s/vcpkg_installed/x64-windows/vcpkg/pkgs/fastgltf_x64-windows/include/fastgltf/tools.hpp
+C:/MyGameP/DX12/Project12_s/vcpkg_installed/x64-windows/vcpkg/pkgs/fastgltf_x64-windows/include/fastgltf/types.hpp
+C:/MyGameP/DX12/Project12_s/vcpkg_installed/x64-windows/vcpkg/pkgs/fastgltf_x64-windows/include/fastgltf/util.hpp
+C:/MyGameP/DX12/Project12_s/vcpkg_installed/x64-windows/vcpkg/pkgs/fastgltf_x64-windows/include/fastgltf/math.hpp
+C:/MyGameP/DX12/Project12_s/vcpkg_installed/x64-windows/vcpkg/pkgs/fastgltf_x64-windows/lib/cmake/fastgltf/fastgltfConfigVersion.cmake
+C:/MyGameP/DX12/Project12_s/vcpkg_installed/x64-windows/vcpkg/pkgs/fastgltf_x64-windows/lib/fastgltf.lib
+C:/MyGameP/DX12/Project12_s/vcpkg_installed/x64-windows/vcpkg/pkgs/fastgltf_x64-windows/bin/fastgltf.dll
+C:/MyGameP/DX12/Project12_s/vcpkg_installed/x64-windows/vcpkg/pkgs/fastgltf_x64-windows/lib/cmake/fastgltf/fastgltfConfig.cmake
+C:/MyGameP/DX12/Project12_s/vcpkg_installed/x64-windows/vcpkg/pkgs/fastgltf_x64-windows/lib/cmake/fastgltf/fastgltfConfig-release.cmake
