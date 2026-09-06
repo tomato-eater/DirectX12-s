@@ -4,6 +4,8 @@
 
 #include <cassert>
 
+#pragma comment(lib, "DirectXTex.lib")
+
 /*
 頂点バッファー　遅い方
     Model2D::Vertex vertices[]{
@@ -153,6 +155,10 @@
 [[nodiscard]] bool Polygon2D::Create(const DXGIDevice& dxgiDevice, Comm_Fence& comm_fence, const wchar_t* path) noexcept {
     //コマンドリストリセット
     comm_fence.Reset(0);
+
+    buffer.resize(2);
+    renMesh.emplace_back();
+
 //頂点バッファー作成
     Structure:: Model2D::Vertex vertices[]{
        {{-1.0f, -1.0f,  0.0}, {0.0f, 1.0f}},
@@ -163,34 +169,38 @@
     const auto vertexSize = static_cast<UINT64>(sizeof(vertices));
 
     Microsoft::WRL::ComPtr<ID3D12Resource> upVertexBuffer{};
-    if (!CreateBuffer(dxgiDevice, comm_fence, vertices, vertexSize, vertexBuffer, upVertexBuffer)) {
+    if (!CreateBuffer(dxgiDevice, comm_fence, vertices, vertexSize, buffer.at(0), upVertexBuffer)) {
         assert(false && "頂点バッファー作成_失敗");
     }
     //バッファービュー
-    vertexBufferView.BufferLocation = vertexBuffer->GetGPUVirtualAddress();
-    vertexBufferView.SizeInBytes = static_cast<UINT>(vertexSize);
-    vertexBufferView.StrideInBytes = sizeof(vertices[0]);
+    renMesh.at(0).vertexBufferView = { .BufferLocation = buffer.at(0)->GetGPUVirtualAddress(), .SizeInBytes = static_cast<UINT>(vertexSize), .StrideInBytes = sizeof(vertices[0]) };
 
 //指数バッファー作成
     unsigned short indices[] = {
       0, 1, 2, 2, 1, 3
     };
-    indexCount = _countof(indices);
+    renMesh.at(0).indexCount = _countof(indices);
     const auto indexSize = static_cast<UINT64>(sizeof(indices));
 
     Microsoft::WRL::ComPtr<ID3D12Resource> upIndexBuffer{};
-    if (!CreateBuffer(dxgiDevice, comm_fence, indices, indexSize, indexBuffer, upIndexBuffer)) {
+    if (!CreateBuffer(dxgiDevice, comm_fence, indices, indexSize, buffer.at(1), upIndexBuffer)) {
         assert(false && "指数バッファー作成_失敗");
         return false;
     }
     //バッファービュー
-    indexBufferView.BufferLocation = indexBuffer->GetGPUVirtualAddress();
-    indexBufferView.SizeInBytes = static_cast<UINT>(indexSize);
-    indexBufferView.Format = DXGI_FORMAT_R16_UINT;
+    renMesh.at(0).indexBufferView = { .BufferLocation = buffer.at(1)->GetGPUVirtualAddress(), .SizeInBytes = static_cast<UINT>(indexSize), .Format = DXGI_FORMAT_R16_UINT };
 
 //テクスチャ―バッファー作成
+    DirectX::TexMetadata metadata{};        //メタデータ
+    DirectX::ScratchImage scratchImage{};	//画像データ管理
+
+    if (FAILED(DirectX::LoadFromWICFile(path, DirectX::WIC_FLAGS_NONE, &metadata, scratchImage))) {
+        assert(false && "テクスチャー読み込み_失敗");
+        return false;
+    }
+
     Microsoft::WRL::ComPtr<ID3D12Resource> upTexBuffer{};
-    if (!CreateTexture(dxgiDevice, comm_fence, path, upTexBuffer)) {
+    if (!CreateTexture(dxgiDevice, comm_fence, metadata, *scratchImage.GetImage(0, 0, 0), textureBuffer.emplace_back(), upTexBuffer, renMesh.at(0).heapNum)) {
         assert(false && "テクスチャ―バッファー作成_失敗");
         return false;
     }
@@ -210,16 +220,16 @@ void Polygon2D::Draw(const DXGIDevice& dxgiDevice, const CommandList& list) noex
     auto handle = HeapManager::Ins().GetHeap(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV)->GetGPUDescriptorHandleForHeapStart();
     const auto handleSize = dxgiDevice.GetDevice()->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
 
-    list.Get()->IASetVertexBuffers(0, 1, &vertexBufferView);
-    list.Get()->IASetIndexBuffer(&indexBufferView);
+    list.Get()->IASetVertexBuffers(0, 1, &renMesh.at(0).vertexBufferView);
+    list.Get()->IASetIndexBuffer(&renMesh.at(0).indexBufferView);
 
     list.Get()->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
     //テクスチャ―との紐づけ
-    handle.ptr += heapNum.at(0) * handleSize;
+    handle.ptr += static_cast<UINT64>(renMesh.at(0).heapNum.value()) * handleSize;
     list.Get()->SetGraphicsRootDescriptorTable(2, handle);
 
     //list.Get()->DrawInstanced(6, 1, 0, 0);
-    list.Get()->DrawIndexedInstanced(indexCount, 1, 0, 0, 0);
+    list.Get()->DrawIndexedInstanced(renMesh.at(0).indexCount, 1, 0, 0, 0);
 
 }

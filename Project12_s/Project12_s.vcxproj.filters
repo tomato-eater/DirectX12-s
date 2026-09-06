@@ -84,7 +84,7 @@
     <ClInclude Include="Code\DirectX\Swap_Target.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Code\Shaders\Shader.h">
+    <ClInclude Include="Code\Shader\Shader.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Code\Objects\Model\Polygon2D.h">
@@ -112,6 +112,9 @@
       <Filter>Objects</Filter>
     </ClInclude>
     <ClInclude Include="Code\Objects\Model\Temp\Model.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\DirectX\DepthBuffer.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
@@ -152,7 +155,7 @@
     <ClCompile Include="Code\DirectX\Swap_Target.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Code\Shaders\Shader.cpp">
+    <ClCompile Include="Code\Shader\Shader.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Code\Objects\Model\Polygon2D.cpp">
@@ -182,14 +185,17 @@
     <ClCompile Include="Code\Objects\Model\Temp\Model.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="Code\DirectX\DepthBuffer.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="Code\Shaders\HLSL\PolyShader.hlsl">
+    <FxCompile Include="Code\Shader\HLSL\PolyShader.hlsl">
       <Filter>HLSL</Filter>
     </FxCompile>
-    <FxCompile Include="Code\Shaders\HLSL\BasicShader.hlsl">
+    <FxCompile Include="Code\Shader\HLSL\BasicShader.hlsl">
       <Filter>HLSL</Filter>
     </FxCompile>
-    <FxCompile Include="Code\Shaders\HLSL\GlbShader.hlsl" />
+    <FxCompile Include="Code\Shader\HLSL\GlbShader.hlsl" />
   </ItemGroup>
 </Project>

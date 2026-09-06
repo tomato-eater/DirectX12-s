@@ -45,25 +45,37 @@ D3D12_BLEND_DESC Blend(int type) {
 	return blend;
 }
 
+//デプスステート
+D3D12_DEPTH_STENCIL_DESC Depth(bool depth)
+{
+	D3D12_DEPTH_STENCIL_DESC depthDesc{};
+	depthDesc.DepthEnable = depth;
+	depthDesc.StencilEnable = false;
+	depthDesc.DepthWriteMask = depth ? D3D12_DEPTH_WRITE_MASK_ALL : D3D12_DEPTH_WRITE_MASK_ZERO;
+	depthDesc.DepthFunc = depth ? D3D12_COMPARISON_FUNC_LESS : D3D12_COMPARISON_FUNC_ALWAYS;
+
+	return depthDesc;
+}
+
 //パイプラインステート作成
-//頂点シェーダー参照　ピクセルシェーダー参照　インプットレイアウト　DXGIデバイス参照　ルートシグネチャー参照
+//頂点シェーダー参照　ピクセルシェーダー参照　インプットレイアウト　DXGIデバイス参照　ルートシグネチャー参照　ブレンドタイプ　深度設定
 //作成成功時、true
-[[nodiscard]] bool PipeLineState::Create(const Shader& shader, const Element input, const DXGIDevice& dxgiDevice, const RootSignature& rootSig) noexcept {
+[[nodiscard]] bool PipeLineState::Create(const Shader& shader, const Element input, const DXGIDevice& dxgiDevice, const RootSignature& rootSig, const int type, const bool depth) noexcept {
 	//パイプラインステートの設定
 	D3D12_GRAPHICS_PIPELINE_STATE_DESC pipDesc{};
 	pipDesc.pRootSignature = rootSig.Get();
 	pipDesc.VS = { shader.GetVS()->GetBufferPointer(), shader.GetVS()->GetBufferSize() };
 	pipDesc.PS = { shader.GetPS()->GetBufferPointer(), shader.GetPS()->GetBufferSize() };
-	pipDesc.BlendState = Blend(1);
+	pipDesc.BlendState = Blend(type);
 	pipDesc.SampleMask = D3D12_DEFAULT_SAMPLE_MASK;
 	pipDesc.RasterizerState = Rasterizer();
-	//pipDesc.DepthStencilState = Depth(true);
+	pipDesc.DepthStencilState = Depth(depth);
 	pipDesc.InputLayout = { input.first, static_cast<UINT>(input.second) };
 	pipDesc.IBStripCutValue = D3D12_INDEX_BUFFER_STRIP_CUT_VALUE_DISABLED;
 	pipDesc.PrimitiveTopologyType = D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE;
 	pipDesc.NumRenderTargets = 1;
 	pipDesc.RTVFormats[0] = DXGI_FORMAT_R8G8B8A8_UNORM_SRGB;
-
+	pipDesc.DSVFormat = DXGI_FORMAT_D32_FLOAT;
 	pipDesc.SampleDesc = { 1, 0 };
 	//パイプラインステート作成
 	if (FAILED(dxgiDevice.GetDevice()->CreateGraphicsPipelineState(&pipDesc, IID_PPV_ARGS(&pipeLineState)))) {

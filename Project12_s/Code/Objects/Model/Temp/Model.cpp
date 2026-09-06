@@ -1,42 +1,43 @@
 #include "Model.h"
 
 #include <cassert>
-#include <DirectXTex.h>
 
 #include "../../../DirectX/Heap.h"
 
 #pragma comment(lib, "DirectXTex.lib")
 
+using Microsoft::WRL::ComPtr;
+
 //ヒープの設定
 D3D12_HEAP_PROPERTIES SetHeapProp(const D3D12_HEAP_TYPE type) {
-    D3D12_HEAP_PROPERTIES prop{};
-    prop.Type = type;
-    prop.CPUPageProperty = D3D12_CPU_PAGE_PROPERTY_UNKNOWN;
-    prop.MemoryPoolPreference = D3D12_MEMORY_POOL_UNKNOWN;
-    prop.CreationNodeMask = 0;
-    prop.VisibleNodeMask = 0;
+    D3D12_HEAP_PROPERTIES prop{
+        .Type = type,
+        .CPUPageProperty = D3D12_CPU_PAGE_PROPERTY_UNKNOWN,
+        .MemoryPoolPreference = D3D12_MEMORY_POOL_UNKNOWN,
+        .CreationNodeMask = 0,
+        .VisibleNodeMask = 0 };
     return prop;
 }
 
 //リソースの設定
 D3D12_RESOURCE_DESC SetResourceDesc(const UINT64 size) {
-    D3D12_RESOURCE_DESC desc{};
-    desc.Dimension = D3D12_RESOURCE_DIMENSION_BUFFER;
-    desc.Width = size;
-    desc.Height = 1;
-    desc.DepthOrArraySize = 1;
-    desc.MipLevels = 1;
-    desc.Format = DXGI_FORMAT_UNKNOWN;
-    desc.SampleDesc = { 1, 0 };
-    desc.Layout = D3D12_TEXTURE_LAYOUT_ROW_MAJOR;
-    desc.Flags = D3D12_RESOURCE_FLAG_NONE;
+    D3D12_RESOURCE_DESC desc{
+        .Dimension = D3D12_RESOURCE_DIMENSION_BUFFER,
+        .Width = size,
+        .Height = 1,
+        .DepthOrArraySize = 1,
+        .MipLevels = 1,
+        .Format = DXGI_FORMAT_UNKNOWN,
+        .SampleDesc = { 1, 0 },
+        .Layout = D3D12_TEXTURE_LAYOUT_ROW_MAJOR,
+        .Flags = D3D12_RESOURCE_FLAG_NONE };
     return desc;
 }
 
 //バッファー作成
 //DXGIデバイス参照　コマンドセット_フェンス参照　データポインター　データサイズ　頂点/指数_バッファー　アップロード用バッファ―
 //作成成功時、true
-[[nodiscard]] bool Model::CreateBuffer(const DXGIDevice& dxgiDevice, const Comm_Fence& comm_fence, const void* pData, const UINT64 dataSize, Microsoft::WRL::ComPtr<ID3D12Resource>& buffer, Microsoft::WRL::ComPtr<ID3D12Resource>& upBuffer) noexcept {
+[[nodiscard]] bool Model::CreateBuffer(const DXGIDevice& dxgiDevice, const Comm_Fence& comm_fence, const void* pData, const UINT64 dataSize, ComPtr<ID3D12Resource>& buffer, ComPtr<ID3D12Resource>& upBuffer) noexcept {
     auto hProp = SetHeapProp(D3D12_HEAP_TYPE_DEFAULT);
     auto rDesc = SetResourceDesc(dataSize);
     //バッファー作成
@@ -68,17 +69,9 @@ D3D12_RESOURCE_DESC SetResourceDesc(const UINT64 size) {
 }
 
 //テクスチャ―バッファー作成
-//DXGIデバイス参照　コマンドセット_フェンス参照　テクスチャーパス　アップロード用バッファ―
+//DXGIデバイス参照　コマンドセット_フェンス参照　メタデータ　イメージ　テクスチャ―バッファー　アップロード用バッファ―
 //作成成功時、true
-[[nodiscard]] bool Model::CreateTexture(const DXGIDevice& dxgiDevice, const Comm_Fence& comm_fence, const wchar_t* path, Microsoft::WRL::ComPtr<ID3D12Resource>& upBuffer) noexcept {
-    DirectX::TexMetadata metadata{};		//テクスチャーデータ
-    DirectX::ScratchImage scratchImage{};	//画像データ管理
-    //画像読み込み
-    if (FAILED(DirectX::LoadFromWICFile(path, DirectX::WIC_FLAGS_NONE, &metadata, scratchImage))) {
-        assert(false && "テクスチャー読み込み_失敗");
-        return false;
-    }
-    const auto image = scratchImage.GetImage(0, 0, 0);
+[[nodiscard]] bool Model::CreateTexture(const DXGIDevice& dxgiDevice, const Comm_Fence& comm_fence, const DirectX::TexMetadata& metadata, const DirectX::Image& image, ComPtr<ID3D12Resource>& buffer, ComPtr<ID3D12Resource>& upBuffer, std::optional<UINT>& heapNum) noexcept {
     //ヒープの設定
     auto hTexProp = SetHeapProp(D3D12_HEAP_TYPE_DEFAULT);
     //リソースの設定
@@ -93,7 +86,7 @@ D3D12_RESOURCE_DESC SetResourceDesc(const UINT64 size) {
     rDesc.Layout = D3D12_TEXTURE_LAYOUT_UNKNOWN;
     rDesc.Flags = D3D12_RESOURCE_FLAG_NONE;
     //テクスチャーバッファー作成
-    if (FAILED(dxgiDevice.GetDevice()->CreateCommittedResource(&hTexProp, D3D12_HEAP_FLAG_NONE, &rDesc, D3D12_RESOURCE_STATE_COPY_DEST, nullptr, IID_PPV_ARGS(&textureBuffer)))) {
+    if (FAILED(dxgiDevice.GetDevice()->CreateCommittedResource(&hTexProp, D3D12_HEAP_FLAG_NONE, &rDesc, D3D12_RESOURCE_STATE_COPY_DEST, nullptr, IID_PPV_ARGS(&buffer)))) {
         assert(false && "頂点バッファー作成_失敗");
         return false;
     }
@@ -106,7 +99,7 @@ D3D12_RESOURCE_DESC SetResourceDesc(const UINT64 size) {
 
     auto upProp = SetHeapProp(D3D12_HEAP_TYPE_UPLOAD);
     rDesc.Dimension = D3D12_RESOURCE_DIMENSION_BUFFER;
-    rDesc.Width = ((image->rowPitch + 255) & ~255) * image->height;
+    rDesc.Width = totalBytes;
     rDesc.Height = 1;
     rDesc.DepthOrArraySize = 1;
     rDesc.MipLevels = 1;
@@ -125,9 +118,9 @@ D3D12_RESOURCE_DESC SetResourceDesc(const UINT64 size) {
         assert(false && "マップ_失敗");
         return false;
     }
-    const BYTE* pSrcMem = image->pixels;
-    for (UINT y = 0; y < numRows; ++y) {
-        std::memcpy(pMapTex + (y * layout.Footprint.RowPitch), pSrcMem + (y * image->rowPitch), rowSizeInBytes);
+    const BYTE* pSrcMem = image.pixels;
+    for (UINT y = 0; y < numRows; y++) {
+        std::memcpy(pMapTex + (y * layout.Footprint.RowPitch), pSrcMem + (y * image.rowPitch), rowSizeInBytes);
     }
     upBuffer->Unmap(0, nullptr);
     //アップロードロケーション
@@ -137,18 +130,18 @@ D3D12_RESOURCE_DESC SetResourceDesc(const UINT64 size) {
     upLocation.PlacedFootprint = layout;
     //テクスチャ―ロケーション
     D3D12_TEXTURE_COPY_LOCATION texLocation{};
-    texLocation.pResource = textureBuffer.Get();
+    texLocation.pResource = buffer.Get();
     texLocation.Type = D3D12_TEXTURE_COPY_TYPE_SUBRESOURCE_INDEX;
     texLocation.SubresourceIndex = 0;
     //コピー
     comm_fence.List().Get()->CopyTextureRegion(&texLocation, 0, 0, 0, &upLocation, nullptr);
-    comm_fence.List().ResourceBarrier(textureBuffer.Get(), D3D12_RESOURCE_STATE_COPY_DEST, D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE);
+    comm_fence.List().ResourceBarrier(buffer.Get(), D3D12_RESOURCE_STATE_COPY_DEST, D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE);
     //シェーダーとの紐づけ
     D3D12_SHADER_RESOURCE_VIEW_DESC srvDesc{};
     srvDesc.Format = metadata.format;
     srvDesc.Shader4ComponentMapping = D3D12_DEFAULT_SHADER_4_COMPONENT_MAPPING;
     srvDesc.ViewDimension = D3D12_SRV_DIMENSION_TEXTURE2D;
-    srvDesc.Texture2D.MipLevels = 1;
+    srvDesc.Texture2D.MipLevels = static_cast<UINT>(metadata.mipLevels);
 
     auto handle = HeapManager::Ins().GetHeap(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV)->GetCPUDescriptorHandleForHeapStart();
     const auto heapNumOp = HeapManager::Ins().GetNum(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
@@ -156,9 +149,9 @@ D3D12_RESOURCE_DESC SetResourceDesc(const UINT64 size) {
         assert(false && "CSUヒープ確保_失敗");
         return false;
     }
-    heapNum.emplace_back(heapNumOp.value());
+    heapNum = heapNumOp.value();
     handle.ptr += heapNumOp.value() * dxgiDevice.GetDevice()->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
-    dxgiDevice.GetDevice()->CreateShaderResourceView(textureBuffer.Get(), &srvDesc, handle);
+    dxgiDevice.GetDevice()->CreateShaderResourceView(buffer.Get(), &srvDesc, handle);
 
     return true;
 }

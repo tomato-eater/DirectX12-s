@@ -7,8 +7,9 @@
 
 #include "../DirectX/RootSignature.h"
 #include "../DirectX/PipeLineState.h"
+#include "../DirectX/DepthBuffer.h"
 
-#include "../Shaders/Shader.h"
+#include "../Shader/Shader.h"
 
 #include "../Objects/Camera/Camera.h"
 #include "../Objects/Model/Polygon2D.h"
@@ -26,6 +27,7 @@ class Main final {
 	Shader shader{};				//VS_PS用シェーダー管理インスタンス
 	RootSignature rootSig{};		//ルートシグネチャー管理インスタンス
 	PipeLineState pipeLine{};		//パイプラインステート管理インスタンス
+	DepthBuffer depthBuffer{};		//深度バッファー管理インスタンス
 
 	Camera camera{};
 	GameObject object{};

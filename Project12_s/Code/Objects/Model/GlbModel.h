@@ -13,7 +13,7 @@ public:
 	//モデルバッファー作成
 	//ファイルパス　DXGIデバイス参照　コマンドセット＿フェンス参照
 	//作成成功時、true
-	[[nodiscard]] bool Create(const char* filePath, const DXGIDevice& dxgiDevice, Comm_Fence& comm_fence) noexcept;
+	[[nodiscard]] bool Create(const wchar_t* filePath, const DXGIDevice& dxgiDevice, Comm_Fence& comm_fence) noexcept;
 
 	//オブジェクト描画
 	//DXGIデバイス参照　コマンドリスト参照

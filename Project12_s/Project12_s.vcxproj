@@ -148,10 +148,11 @@
     <ClInclude Include="Code\Objects\Model\Polygon2D.h" />
     <ClInclude Include="Code\DirectX\RenderTarget.h" />
     <ClInclude Include="Code\DirectX\RootSignature.h" />
-    <ClInclude Include="Code\Shaders\Shader.h" />
+    <ClInclude Include="Code\Shader\Shader.h" />
     <ClInclude Include="Code\DirectX\SwapChain.h" />
     <ClInclude Include="Code\DirectX\Swap_Target.h" />
     <ClInclude Include="Code\Window\Window.h" />
+    <ClInclude Include="Code\DirectX\DepthBuffer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Code\Objects\Camera\Camera.cpp" />
@@ -172,13 +173,14 @@
     <ClCompile Include="Code\Objects\Model\Polygon2D.cpp" />
     <ClCompile Include="Code\DirectX\RenderTarget.cpp" />
     <ClCompile Include="Code\DirectX\RootSignature.cpp" />
-    <ClCompile Include="Code\Shaders\Shader.cpp" />
+    <ClCompile Include="Code\Shader\Shader.cpp" />
     <ClCompile Include="Code\DirectX\SwapChain.cpp" />
     <ClCompile Include="Code\DirectX\Swap_Target.cpp" />
     <ClCompile Include="Code\Window\Window.cpp" />
+    <ClCompile Include="Code\DirectX\DepthBuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="Code\Shaders\HLSL\BasicShader.hlsl">
+    <FxCompile Include="Code\Shader\HLSL\BasicShader.hlsl">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
@@ -188,7 +190,7 @@
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
     </FxCompile>
-    <FxCompile Include="Code\Shaders\HLSL\GlbShader.hlsl">
+    <FxCompile Include="Code\Shader\HLSL\GlbShader.hlsl">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
@@ -198,7 +200,7 @@
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
     </FxCompile>
-    <FxCompile Include="Code\Shaders\HLSL\PolyShader.hlsl">
+    <FxCompile Include="Code\Shader\HLSL\PolyShader.hlsl">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>

@@ -34,16 +34,23 @@
 	}
 	//PolyShader.hlsl
 	//BasicShader.hlsl
-	if (!shader.Create(L"Code/Shaders/HLSL/BasicShader.hlsl")) {
+	if (!shader.Create(L"Code/Shader/HLSL/BasicShader.hlsl")) {
 		assert(false && "シェーダー取得_失敗");
 		return false;
 	}
+	//ルートシグネチャー作成
 	if (!rootSig.Create(Model3D(), dxgiDevice)) {
 		assert(false && "ルートシグネチャー作成_失敗");
 		return false;
 	}
-	if (!pipeLine.Create(shader, Structure::Model2D::Layout(), dxgiDevice, rootSig)) {
+	//パイプラインステート作成
+	if (!pipeLine.Create(shader, Structure::Model2D::Layout(), dxgiDevice, rootSig, 2, true)) {
 		assert(false && "パイプラインステート作成_失敗");
+		return false;
+	}
+	//深度バッファー作成
+	if (!depthBuffer.Create(window, dxgiDevice)) {
+		assert(false && "深度バッファー作成_失敗");
 		return false;
 	}
 
@@ -52,25 +59,25 @@
 		assert(false && "カメラ作成_失敗");
 		return false;
 	}
-	camera.Set(5, window);
+	camera.Set(20, window);
 
 	if (!object.Create(dxgiDevice)) {
 		assert(false && "オブジェクト作成_失敗");
 		return false;
 	}
-	object.Set({ 0, 0, 0 }, { 0, 0, 0 }, { 1, 1, 1 });
+	object.Set({ 0, 0, 0 }, { 0, 0, 0 }, { 0.1f, 0.1f, 0.1f });
 
-
+	
 	if (!poly.Create(dxgiDevice, comm_fence, L"Assets/Image/TestImage2.png")) {
 		assert(false && "ポリゴン作成_失敗");
 		return false;
 	}
-
-	if (!glbModel.Create("Assets/Model/Chocobo001_11k.glb", dxgiDevice, comm_fence)) {
+	
+	if (!glbModel.Create(L"Assets/Model/Chocobo001_11k.glb", dxgiDevice, comm_fence)) {
 		assert(false && "glbモデル読み込み_失敗");
 		return false;
 	}
-
+	
 	return true;
 }
 
@@ -90,12 +97,12 @@ void Main::Loop() noexcept {
 
 		//ハンドルの設定
 		D3D12_CPU_DESCRIPTOR_HANDLE cpuHandles[] = { swap_target.GetHandleCPU(backBuffIdx, dxgiDevice) };
-		auto depthHandle = HeapManager::Ins().GetHeap(D3D12_DESCRIPTOR_HEAP_TYPE_DSV)->GetCPUDescriptorHandleForHeapStart();
-		//depthHandle.ptr += depthBuffer.HeapNum() * dxgiDevice.GetDevice()->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_DSV);
-		comm_fence.List().Get()->OMSetRenderTargets(1, cpuHandles, true, nullptr);
+		auto depthHandle = depthBuffer.GetHandle();
+		comm_fence.List().Get()->OMSetRenderTargets(1, cpuHandles, false, &depthHandle);
 		//バックバッファクリア
 		float clearColor[] = { 0.0f, 0.0f, 0.5f, 1.0f };
 		comm_fence.List().Get()->ClearRenderTargetView(cpuHandles[0], clearColor, 0, nullptr);
+		comm_fence.List().Get()->ClearDepthStencilView(depthHandle, D3D12_CLEAR_FLAG_DEPTH, 1.0f, 0, 0, nullptr);
 
 		//ルートシグネチャー設定
 		comm_fence.List().Get()->SetGraphicsRootSignature(rootSig.Get());
@@ -118,7 +125,8 @@ void Main::Loop() noexcept {
 		camera.Map(dxgiDevice, comm_fence.List());
 		object.Map(dxgiDevice, comm_fence.List());
 		
-		poly.Draw(dxgiDevice, comm_fence.List());		
+		glbModel.Draw(dxgiDevice, comm_fence.List());
+		//poly.Draw(dxgiDevice, comm_fence.List());
 
 
 		//レンダ―ターゲットの変更	描画用から表示用

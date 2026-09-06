@@ -38,6 +38,10 @@ void Camera::Update(const DirectX::XMFLOAT3 playerPos) noexcept {
 	
 	//focus = playerPos;
 
+
+	/*
+	
+	*/
 	auto move = Input::Ins().GetMouseMove();
 	yaw += move.at(0) * 0.01f;
 	pitch += move.at(1) * -0.01f;
@@ -46,6 +50,9 @@ void Camera::Update(const DirectX::XMFLOAT3 playerPos) noexcept {
 	if (pitch < -limit) pitch = -limit;
 
 	DirectX::XMVECTOR target = DirectX::XMLoadFloat3(&playerPos);
+
+	DirectX::XMFLOAT3 t = { 0, 10, 0 };
+	target = DirectX::XMLoadFloat3(&t);
 
 	auto cosPitch = cosf(pitch);
 	auto sinPitch = sinf(pitch);
@@ -62,6 +69,7 @@ void Camera::Update(const DirectX::XMFLOAT3 playerPos) noexcept {
 	DirectX::XMVECTOR pos = DirectX::XMVectorAdd(target, cameraOffset);
 	DirectX::XMVECTOR up = DirectX::XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
 
+	pos = { 0,10,-20 };
 
 	//ƒrƒ…[‚ÌŒvŽZ
 	view = DirectX::XMMatrixLookAtLH(

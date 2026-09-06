@@ -54,6 +54,10 @@ void GameObject::Update() noexcept {
 	DirectX::XMMATRIX matP = DirectX::XMMatrixTranslation(position.x, position.y, position.z);
 
 	world = matS * matR * matP;
+
+	DirectX::XMMATRIX gltfAxisCorrection = DirectX::XMMatrixRotationX(DirectX::XMConvertToRadians(90.0f));
+
+	world *= gltfAxisCorrection;
 }
 
 //ƒ}ƒbƒv

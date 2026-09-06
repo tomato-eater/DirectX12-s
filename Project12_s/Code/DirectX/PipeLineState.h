@@ -1,7 +1,7 @@
 #pragma once
 
 #include "DXGIDevice.h"
-#include "../Shaders/Shader.h"
+#include "../Shader/Shader.h"
 #include "../Objects/Layout.h"
 #include "RootSignature.h"
 
@@ -14,9 +14,9 @@ public:
 	~PipeLineState() = default;
 
 	//パイプラインステート作成
-	//頂点シェーダー参照　ピクセルシェーダー参照　インプットレイアウト　DXGIデバイス参照　ルートシグネチャー参照
+	//頂点シェーダー参照　ピクセルシェーダー参照　インプットレイアウト　DXGIデバイス参照　ルートシグネチャー参照　ブレンドタイプ　深度設定
 	//作成成功時、true
-	[[nodiscard]] bool Create(const Shader& shader, const Element input, const DXGIDevice& dxgiDevice, const RootSignature& rootSig) noexcept;
+	[[nodiscard]] bool Create(const Shader& shader, const Element input, const DXGIDevice& dxgiDevice, const RootSignature& rootSig, const int type, const bool depth) noexcept;
 
 	//パイプラインステートの取得
 	//パイプラインステートのポインター
